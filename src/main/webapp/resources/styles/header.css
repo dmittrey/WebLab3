@@ -2,11 +2,11 @@
 
 header {
     background: rgba(24, 24, 24, 0.83);
-    font-family: cursive, 'ZCOOL KuaiLe', 'Times New Roman';
+    font-family: 'ZCOOL KuaiLe', 'Times New Roman', serif;
     color: white;
     height: 75px;
-    font-size: 50px;
-    text-align: center;
+    font-size: 75px;
+    text-align: left;
     transition: 0.8s;
 }
 

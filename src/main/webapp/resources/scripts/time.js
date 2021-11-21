@@ -1,10 +1,15 @@
-update();
-setInterval(update, 9000);
+const deg = 6;
+const hr = $('.hr');
+const mn = $('.mn');
+const sc = $('.sc');
 
-function update() {
-    let date = new Date();
-    hours = (date.getHours() < 10) ? '0' + date.getHours() : date.getHours();
-    minutes = (date.getMinutes() < 10) ? '0' + date.getMinutes() : date.getMinutes();
-    seconds = (date.getSeconds() < 10) ? '0' + date.getSeconds() : date.getSeconds();
-    $('#clock').html(hours + ':' + minutes + ':' + seconds);
-}
+setInterval(() => {
+    let day = new Date();
+    let hh = day.getHours() * 30;
+    let mm = day.getMinutes() * deg;
+    let ss = day.getSeconds() * deg;
+
+    hr.css("transform", "rotateZ(" + hh + (mm / 12) + "deg)");
+    mn.css("transform", "rotateZ(" + mm + "deg)");
+    sc.css("transform", "rotateZ(" + ss + "deg)");
+}, 1000);

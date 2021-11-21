@@ -38,6 +38,7 @@
     </content>
     <orderEntry type="jdk" jdkName="1.8" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="jquery-3.6.0" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: javax:javaee-api:8.0.1" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: com.sun.mail:javax.mail:1.6.2" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: javax.activation:activation:1.1" level="project" />
@@ -50,6 +51,6 @@
     <orderEntry type="library" name="Maven: com.sun.faces:jsf-api:2.2.18" level="project" />
     <orderEntry type="library" name="Maven: com.sun.faces:jsf-impl:2.2.18" level="project" />
     <orderEntry type="library" name="Maven: org.projectlombok:lombok:1.18.22" level="project" />
-    <orderEntry type="library" name="jquery-3.6.0" level="application" />
+    <orderEntry type="library" name="Date.format" level="application" />
   </component>
 </module>

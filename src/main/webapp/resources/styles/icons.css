@@ -1,0 +1,161 @@
+.homeIcon {
+    position: absolute;
+    left: 90%;
+}
+
+.settingsIcon {
+    position: absolute;
+    left: 80%;
+}
+
+.circleIcon {
+    position: absolute;
+    font-size: 40px;
+    color: #ffffff;
+    width: 75px;
+    margin: 40px;
+    height: 75px;
+    line-height: 75px;
+    display: inline-block;
+    text-align: center;
+    border-radius: 50%;
+}
+
+.circleIcon * {
+    -webkit-box-sizing: content-box;
+    box-sizing: content-box;
+    -webkit-transition: all 0.3s;
+    transition: all 0.3s;
+}
+
+.circleIcon:before,
+.circleIcon:after {
+    -webkit-transition: all 0.3s;
+    transition: all 0.3s;
+}
+
+.circleIcon:before {
+    color: #f7f7f9;
+}
+
+.circleIcon:after {
+    background: #333333;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    border: 6px solid #0a0a0a;
+    content: '';
+    z-index: -1;
+    border-radius: 50%;
+    box-sizing: border-box;
+}
+
+.circleIcon.blue:after {
+    border-color: #1a74af;
+    background-color: #123851;
+}
+
+.circleIcon.yellow:after {
+    border-color: #e28f0b;
+    background-color: #7f5006;
+}
+
+.circleIcon.green:after {
+    border-color: #27ae60;
+    background-color: #104627;
+}
+
+.circleIcon.navy:after {
+    border-color: #2d465f;
+    background-color: #07090c;
+}
+
+.circleIcon.red:after {
+    border-color: #9e261a;
+    background-color: #581a14;
+}
+
+.circleIcon:hover:after,
+.circleIcon.hover:after {
+    border-color: transparent;
+    animation: spin1106 cubic-bezier(0.18, 0.14, 0.29, 1) 1s;
+    border-right-color: #000000;
+    border-left-color: #000000;
+    border-top-color: #ffffff !important;
+    border-bottom-color: #ffffff !important;
+}
+
+.circleIcon:hover.blue,
+.circleIcon.hover.blue {
+    color: #1a74af;
+}
+
+.circleIcon:hover.blue:after,
+.circleIcon.hover.blue:after {
+    border-right-color: #1a74af;
+    border-left-color: #1a74af;
+}
+
+.circleIcon:hover.yellow,
+.circleIcon.hover.yellow {
+    color: #e28f0b;
+}
+
+.circleIcon:hover.yellow:after,
+.circleIcon.hover.yellow:after {
+    border-right-color: #e28f0b;
+    border-left-color: #e28f0b;
+}
+
+.circleIcon:hover.green,
+.circleIcon.hover.green {
+    color: #27ae60;
+}
+
+.circleIcon:hover.green:after,
+.circleIcon.hover.green:after {
+    border-right-color: #27ae60;
+    border-left-color: #27ae60;
+}
+
+.circleIcon:hover.navy,
+.circleIcon.hover.navy {
+    color: #2d465f;
+}
+
+.circleIcon:hover.navy:after,
+.circleIcon.hover.navy:after {
+    border-right-color: #2d465f;
+    border-left-color: #2d465f;
+}
+
+.circleIcon:hover.red,
+.circleIcon.hover.red {
+    color: #9e261a;
+}
+
+.circleIcon:hover.red:after,
+.circleIcon.hover.red:after {
+    border-right-color: #9e261a;
+    border-left-color: #9e261a;
+}
+
+@-webkit-keyframes spin1106 {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes spin1106 {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
