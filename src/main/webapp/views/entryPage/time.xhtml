@@ -3,6 +3,7 @@
         xmlns:h="http://xmlns.jcp.org/jsf/html"
         xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:outputStylesheet name="styles/clock.css"/>
+    <h:outputStylesheet name="styles/timer.css"/>
     <main>
         <div class="clock">
             <div class="hour"> <!-- Обертка для стрелок -->
@@ -15,6 +16,8 @@
                 <div class="sc"></div>
             </div>
         </div>
+        <div class="timer"></div>
     </main>
-    <h:outputScript name="/scripts/time.js"/>
+    <h:outputScript name="scripts/timerHandler.js"/>
+    <h:outputScript name="scripts/clockHandler.js"/>
 </ui:composition>

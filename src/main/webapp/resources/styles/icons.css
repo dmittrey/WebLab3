@@ -1,11 +1,22 @@
 .homeIcon {
     position: absolute;
-    left: 90%;
+    left: 92%;
+    top: -40px;
+    z-index: 1;
 }
 
 .settingsIcon {
     position: absolute;
-    left: 80%;
+    left: 85%;
+    top: -40px;
+    z-index: 1;
+}
+
+.gitIcon {
+    position: absolute;
+    left: 78%;
+    top: -40px;
+    z-index: 1;
 }
 
 .circleIcon {
@@ -39,7 +50,8 @@
 }
 
 .circleIcon:after {
-    background: #333333;
+    background: #333333 url("https://img2.freepng.ru/20180409/row/kisspng-gear-clip-art-gears-5acc22d52f4470.8691826415233277011936.jpg") center no-repeat;
+    background-size: cover;
     position: absolute;
     top: 0;
     left: 0;
@@ -59,7 +71,8 @@
 
 .circleIcon.yellow:after {
     border-color: #e28f0b;
-    background-color: #7f5006;
+    background: #7f5006 url("https://img2.freepng.ru/20180425/ksw/kisspng-computer-icons-house-5ae01c90b74453.6841311615246368167507.jpg") no-repeat center;
+    background-size: cover;
 }
 
 .circleIcon.green:after {
@@ -74,7 +87,8 @@
 
 .circleIcon.red:after {
     border-color: #9e261a;
-    background-color: #581a14;
+    background: #581a14 url("https://banner2.cleanpng.com/20180824/xrj/kisspng-computer-icons-pro-git-portable-network-graphics-i-git-book-pro-git-app-app-5b80546c0b1311.5417567715351368760454.jpg") no-repeat center;
+    background-size: cover;
 }
 
 .circleIcon:hover:after,

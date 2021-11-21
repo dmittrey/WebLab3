@@ -4,13 +4,9 @@ header {
     background: rgba(24, 24, 24, 0.83);
     font-family: 'ZCOOL KuaiLe', 'Times New Roman', serif;
     color: white;
-    height: 75px;
-    font-size: 75px;
+    height: 76px;
+    font-size: 76px;
     text-align: left;
     transition: 0.8s;
-}
-
-header:hover {
-    transform: scale(1.08);
-    box-shadow: 0 0 40px 5px #f41c52;
+    z-index: 0;
 }
