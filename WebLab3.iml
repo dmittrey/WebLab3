@@ -50,5 +50,6 @@
     <orderEntry type="library" name="Maven: com.sun.faces:jsf-api:2.2.18" level="project" />
     <orderEntry type="library" name="Maven: com.sun.faces:jsf-impl:2.2.18" level="project" />
     <orderEntry type="library" name="Maven: org.projectlombok:lombok:1.18.22" level="project" />
+    <orderEntry type="library" name="jquery-3.6.0" level="application" />
   </component>
 </module>
