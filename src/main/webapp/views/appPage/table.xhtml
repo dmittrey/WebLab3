@@ -1,0 +1,27 @@
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <section class="table_section">
+
+        <!-- Кнопка очистки таблицы -->
+        <div id="cleaner">
+            <button>CLEAN TABLE</button>
+        </div>
+
+        <!-- Таблица регистрирующая попадания -->
+        <div>
+            <table id="table">
+                <tr>
+                    <th>X</th>
+                    <th>Y</th>
+                    <th>R</th>
+                    <th>CURRENT TIME</th>
+                    <th>EXECUTION TIME</th>
+                    <th>HIT RESULT</th>
+                </tr>
+                <
+                %=HitListFormatter.getRows(hitStorage)%>
+            </table>
+        </div>
+    </section>
+</ui:composition>
