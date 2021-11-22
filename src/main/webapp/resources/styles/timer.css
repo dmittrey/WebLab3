@@ -10,4 +10,5 @@
     padding-bottom: 40px;
     width: 40%;
     left: 30%;
+    transition: 0.5s;
 }

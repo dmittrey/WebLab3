@@ -1,6 +1,8 @@
 <ui:composition
         xmlns="http://www.w3.org/1999/xhtml"
-        xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+        xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+        xmlns:h="http://java.sun.com/jsf/html">
+    <h:outputStylesheet name="styles/table.css"/>
     <section class="table_section">
 
         <!-- Кнопка очистки таблицы -->
@@ -19,9 +21,9 @@
                     <th>EXECUTION TIME</th>
                     <th>HIT RESULT</th>
                 </tr>
-                <
-                %=HitListFormatter.getRows(hitStorage)%>
+<!--                <%=HitListFormatter.getRows(hitStorage)%>-->
             </table>
         </div>
     </section>
+    <h:outputScript name="scripts/tableHandler.js"/>
 </ui:composition>

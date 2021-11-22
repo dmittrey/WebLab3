@@ -133,10 +133,12 @@ drawAxesScaleLabels = (r) => {
 drawArea = (r) => {
     const circlePath = 'M ' + (convertX(0)) + ', ' + (convertY(r)) + ' ' +
         'A' + r / (2 * scale) + ', ' + r / (2 * scale) + ' ' +
-        '90 0,1 ' + (convertX(r)) + ', ' + (convertY(0)) + ' L 200,200 Z'
+        '90 0,1' + (convertX(r)) + ', ' + (convertY(0)) + ' L ' + (convertX(0)) + ', ' + (convertY(0));
+
     const triangle = (convertX(0)) + ', ' + (convertY(0)) + ' ' +
         (convertX(r / 2)) + ', ' + (convertY(0)) + ' ' +
         (convertX(0)) + ', ' + (convertY(-r / 2));
+
     CANVAS.path(circlePath)
         .fill(CIRCLE_COLOR)
         .move(convertX(0), convertY(r));

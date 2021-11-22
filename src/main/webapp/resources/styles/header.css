@@ -4,9 +4,9 @@ header {
     background: rgba(24, 24, 24, 0.83);
     font-family: 'ZCOOL KuaiLe', 'Times New Roman', serif;
     color: white;
-    height: 76px;
-    font-size: 76px;
+    height: 6vw;
+    font-size: 4vw;
     text-align: left;
-    transition: 0.8s;
     z-index: 0;
+    transition: 0.5s;
 }

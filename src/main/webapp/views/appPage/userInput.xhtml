@@ -1,26 +1,28 @@
 <ui:composition
         xmlns="http://www.w3.org/1999/xhtml"
-        xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
-    <section class="user_input">
-
+        xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+        xmlns:h="http://java.sun.com/jsf/html">
+    <h:outputStylesheet name="styles/user_input.css"/>
         <!-- Форма для отправки данных серверу с помощью метода POST -->
         <form id="form"
               onsubmit="return sendOriginRequest()"
               onreset="clearAlerts(); clearX();">
+
             <!-- Блок для ввода значений переменных -->
             <div class="values">
 
                 <!-- Блок для значения Y -->
                 <div class="X_value">
+
                     <!-- Кнопки для ввода значения X -->
                     <label>X value:
-                        <input type="button" name="X_value" value="-3">
-                        <input type="button" name="X_value" value="-2">
-                        <input type="button" name="X_value" value="-1">
-                        <input type="button" name="X_value" value="0">
-                        <input type="button" name="X_value" value="1">
-                        <input type="button" name="X_value" value="2">
-                        <input type="button" name="X_value" value="3">
+                        <input type="button" name="X_value" value="-3"></input>
+                        <input type="button" name="X_value" value="-2"></input>
+                        <input type="button" name="X_value" value="-1"></input>
+                        <input type="button" name="X_value" value="0"></input>
+                        <input type="button" name="X_value" value="1"></input>
+                        <input type="button" name="X_value" value="2"></input>
+                        <input type="button" name="X_value" value="3"></input>
                     </label>
                 </div>
 
@@ -29,7 +31,7 @@
 
                     <!-- Поле ввода значения Y -->
                     <label for="Y_value">Y value:</label>
-                    <input type="text" id="Y_value" name="Y_value" placeholder="Enter coordinate Y" maxlength="6">
+                    <input type="text" id="Y_value" name="Y_value" placeholder="Enter coordinate Y" maxlength="6"></input>
                 </div>
 
                 <!-- Блок для значения R -->
@@ -37,7 +39,7 @@
 
                     <!-- Поле ввода значения R -->
                     <label for="R_value">R value:</label>
-                    <input type="text" id="R_value" name="R_value" placeholder="Enter coordinate R" maxlength="5">
+                    <input type="text" id="R_value" name="R_value" placeholder="Enter coordinate R" maxlength="5"></input>
                 </div>
             </div>
 
@@ -49,12 +51,14 @@
 
             <!-- Блок для кнопок отправки и обнуления -->
             <div class="buttons">
-                <input id="submit" type="submit" value="SUBMIT">
-                <input id="reset" type="reset" value="RESET">
+                <input id="submit" type="submit" value="SUBMIT"></input>
+                <input id="reset" type="reset" value="RESET"></input>
             </div>
 
             <div id="Alert_text">
             </div>
         </form>
-    </section>
+    <h:outputScript name="scripts/dataHandler.js"/>
+    <h:outputScript name="scripts/requestHandler.js"/>
+    <h:outputScript name="scripts/alertHandler.js"/>
 </ui:composition>

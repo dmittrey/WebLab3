@@ -1,5 +1,5 @@
 window.onload = () => {
-    // {drawPlot()}
+    {drawPlot()}
 
     $("#plot").on("click", (e) => {
         clearServerAlert();
