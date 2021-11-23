@@ -1,10 +1,12 @@
 <ui:composition
         xmlns="http://www.w3.org/1999/xhtml"
         xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-        xmlns:h="http://java.sun.com/jsf/html">
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:p="http://primefaces.org/ui">
     <h:outputStylesheet name="styles/user_input.css"/>
+<!--    <h:outputScript name="scripts/graphHandler.js"/>-->
         <!-- Форма для отправки данных серверу с помощью метода POST -->
-        <form id="form"
+        <h:form id="form"
               onsubmit="return sendOriginRequest()"
               onreset="clearAlerts(); clearX();">
 
@@ -14,32 +16,29 @@
                 <!-- Блок для значения Y -->
                 <div class="X_value">
 
-                    <!-- Кнопки для ввода значения X -->
-                    <label>X value:
-                        <input type="button" name="X_value" value="-3"></input>
-                        <input type="button" name="X_value" value="-2"></input>
-                        <input type="button" name="X_value" value="-1"></input>
-                        <input type="button" name="X_value" value="0"></input>
-                        <input type="button" name="X_value" value="1"></input>
-                        <input type="button" name="X_value" value="2"></input>
-                        <input type="button" name="X_value" value="3"></input>
-                    </label>
+                    <!-- Поле для ввода значения X -->
+
+                        <h:outputLabel for="X_value" value="X value:"/>
+                        <h:inputText id="X_value" maxlength="6" value="#{hitResults.newHit.x}"/>
                 </div>
 
                 <!-- Блок для значения Y -->
                 <div class="Y_value">
 
                     <!-- Поле ввода значения Y -->
-                    <label for="Y_value">Y value:</label>
-                    <input type="text" id="Y_value" name="Y_value" placeholder="Enter coordinate Y" maxlength="6"></input>
+                    <h:outputLabel for="Y_value" value="Y value:"/>
+                    <h:inputText id="Y_value" maxlength="6" value="#{hitResults.newHit.y}"/>
                 </div>
 
                 <!-- Блок для значения R -->
                 <div class="R_value">
-
+                    <h:outputLabel for="R_value" value="R value:"/>
+                    <h:inputText id="R_value" styleClass="sliderValue" disabled="true"/>
+                    <p:slider for="R_value" styleClass="slider" minValue="2" maxValue="5" step="0.1"/>
                     <!-- Поле ввода значения R -->
-                    <label for="R_value">R value:</label>
-                    <input type="text" id="R_value" name="R_value" placeholder="Enter coordinate R" maxlength="5"></input>
+<!--                    <h:outputLabel for="R_value" value="R value:"/>-->
+<!--                    <p:slider minValue="2" maxValue="5" step="0.1"/>-->
+<!--                    id="R_value" minValue="2" maxValue="5" binding="#{hitResults.newHit.r}-->
                 </div>
             </div>
 
@@ -57,8 +56,8 @@
 
             <div id="Alert_text">
             </div>
-        </form>
-    <h:outputScript name="scripts/dataHandler.js"/>
-    <h:outputScript name="scripts/requestHandler.js"/>
-    <h:outputScript name="scripts/alertHandler.js"/>
+        </h:form>
+<!--    <h:outputScript name="scripts/dataHandler.js"/>-->
+<!--    <h:outputScript name="scripts/requestHandler.js"/>-->
+<!--    <h:outputScript name="scripts/alertHandler.js"/>-->
 </ui:composition>

@@ -27,6 +27,11 @@ drawPlot = () => {
     }
 }
 
+slide = () => {
+    DEFAULT_R = $('#sliderValue').val();
+    drawPlot();
+}
+
 initPlot = () => {
     console.log("Строим без точек.")
     drawArea(DEFAULT_R);
