@@ -1,7 +1,7 @@
 <ui:composition
         xmlns="http://www.w3.org/1999/xhtml"
         xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-        xmlns:h="http://java.sun.com/jsf/html">
+        xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core">
     <h:outputStylesheet name="styles/table.css"/>
     <section class="table_section">
 
@@ -11,19 +11,40 @@
         </div>
 
         <!-- Таблица регистрирующая попадания -->
-        <div>
-            <table id="table">
-                <tr>
-                    <th>X</th>
-                    <th>Y</th>
-                    <th>R</th>
-                    <th>CURRENT TIME</th>
-                    <th>EXECUTION TIME</th>
-                    <th>HIT RESULT</th>
-                </tr>
-<!--                <%=HitListFormatter.getRows(hitStorage)%>-->
-            </table>
-        </div>
+        <h:dataTable value = "${hitResults.hitList}" var = "hit"
+                     styleClass = "hitTable"
+                     id="hitTable">
+
+            <h:column>
+                <f:facet name = "header">X</f:facet>
+                ${hit.x}
+            </h:column>
+
+            <h:column>
+                <f:facet name = "header">Y</f:facet>
+                ${hit.y}
+            </h:column>
+
+            <h:column>
+                <f:facet name = "header">R</f:facet>
+                ${hit.r}
+            </h:column>
+
+            <h:column>
+                <f:facet name = "header">CURRENT TIME</f:facet>
+                ${hit.currentTime}
+            </h:column>
+
+            <h:column>
+                <f:facet name = "header">EXECUTION TIME</f:facet>
+                ${hit.executionTime}
+            </h:column>
+
+            <h:column>
+                <f:facet name = "header">HIT RESULT</f:facet>
+                ${hit.result}
+            </h:column>
+        </h:dataTable>
     </section>
     <h:outputScript name="scripts/tableHandler.js"/>
 </ui:composition>

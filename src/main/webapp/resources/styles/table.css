@@ -25,7 +25,7 @@
     box-shadow: 0 0 10px 5px #f41c52;
 }
 
-.main .table_section #table {
+.main .table_section #hitTable {
     position: relative;
     top: 20px;
     width: 1100px;
@@ -34,18 +34,18 @@
     transition: 0.5s;
 }
 
-.main .table_section #table:hover {
+.main .table_section #hitTable:hover {
     box-shadow: 0 0 40px 5px #f41c52;
 }
 
-#table tr:first-of-type {
+#hitTable tr:first-of-type {
     background: rgba(0, 0, 0, 0.83);
 }
 
-#table tr:nth-child(odd) {
+#hitTable tr:nth-child(odd) {
     background: rgb(29, 29, 29);
 }
 
-#table td, th {
+#hitTable td, th {
     padding: 3px;
 }

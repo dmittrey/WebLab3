@@ -4,11 +4,9 @@
         xmlns:h="http://java.sun.com/jsf/html"
         xmlns:p="http://primefaces.org/ui" xmlns:f="http://java.sun.com/jsf/core">
     <h:outputStylesheet name="styles/user_input.css"/>
-<!--    <h:outputScript name="scripts/graphHandler.js"/>-->
+    <h:outputScript name="scripts/graphHandler.js"/>
         <!-- Форма для отправки данных серверу с помощью метода POST -->
-        <h:form id="form"
-              onsubmit="return sendOriginRequest()"
-              onreset="clearAlerts(); clearX();">
+        <h:form id="form">
 
             <!-- Блок для ввода значений переменных -->
             <div class="values">
@@ -47,9 +45,10 @@
             </div>
 
             <!-- Блок для кнопок отправки и обнуления -->
+            <!-- todo Сделать форматирование данных таблички -->
             <div class="buttons">
                 <h:commandButton id="submit" styleClass="submit" value="SUBMIT" action="#{hitResults.addHit}">
-                    <f:ajax execute="form" render="table"/>
+                    <f:ajax execute="form" render="hitTable"/>
                 </h:commandButton>
                 <input id="reset" type="reset" value="RESET"/>
             </div>

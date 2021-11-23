@@ -7,7 +7,7 @@ import javax.faces.bean.ManagedBean;
 @Data
 @ManagedBean
 public class timeBean {
-
+//todo Подключить timeBean к часам на старте
     private int year;
     private int month;
     private int day;
