@@ -1,4 +1,4 @@
-package com.example.WebLab3;
+package com.example.WebLab3.beans;
 
 import lombok.Data;
 

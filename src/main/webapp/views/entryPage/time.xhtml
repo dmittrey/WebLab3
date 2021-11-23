@@ -18,6 +18,38 @@
         </div>
         <div class="timer"></div>
     </main>
+<!--    <script>-->
+<!--        const deg = 6;-->
+<!--        const hr = $('.hr');-->
+<!--        const mn = $('.mn');-->
+<!--        const sc = $('.sc');-->
+<!--        const timer = $('.timer');-->
+
+<!--        updateClock = () => {-->
+<!--            let day = new Date();-->
+<!--            let ss = day.getSeconds() * deg;-->
+<!--            let mm = day.getMinutes() * deg;-->
+<!--            let hh = day.getHours() * 30 + mm / 12;-->
+
+<!--            hr.css("transform", "rotateZ(" + hh + "deg)");-->
+<!--            mn.css("transform", "rotateZ(" + mm + "deg)");-->
+<!--            sc.css("transform", "rotateZ(" + ss + "deg)");-->
+<!--        }-->
+
+<!--        updateTimer = () => {-->
+<!--            let date = new Date(); /* creating object of Date class */-->
+<!--            let hours = (date.getHours() < 10) ? '0' + date.getHours() : date.getHours();-->
+<!--            let minutes = (date.getMinutes() < 10) ? '0' + date.getMinutes() : date.getMinutes();-->
+<!--            let seconds = (date.getSeconds() < 10) ? '0' + date.getSeconds() : date.getSeconds();-->
+<!--            timer.html( new Date().format('m-d-Y') + " " + hours + ':' + minutes + ':' + seconds);-->
+<!--        }-->
+
+<!--        updateClock()-->
+<!--        updateTimer();-->
+
+<!--        setInterval(updateClock, 1000);-->
+<!--        setInterval(updateTimer, 12000);-->
+<!--    </script>-->
     <h:outputScript name="scripts/timerHandler.js"/>
     <h:outputScript name="scripts/clockHandler.js"/>
 </ui:composition>

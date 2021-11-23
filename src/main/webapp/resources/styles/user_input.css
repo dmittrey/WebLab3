@@ -82,7 +82,7 @@
     top: 280px;
 }
 
-.main .user_input .buttons #submit {
+.main .user_input .buttons .submit {
     color: whitesmoke;
     background: rgba(49, 49, 49, 0.83);
     width: 150px;
