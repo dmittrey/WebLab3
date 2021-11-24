@@ -8,6 +8,7 @@
         <navigation-case>
             <from-outcome>to_app</from-outcome>
             <to-view-id>/views/app.xhtml</to-view-id>
+            <redirect/>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
@@ -15,6 +16,7 @@
         <navigation-case>
             <from-outcome>to_start</from-outcome>
             <to-view-id>/views/entry.xhtml</to-view-id>
+            <redirect/>
         </navigation-case>
     </navigation-rule>
 

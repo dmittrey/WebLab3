@@ -1,4 +1,4 @@
-.main .user_input form {
+.main .user_input #form {
     position: relative;
     left: 700px;
     width: 500px;
@@ -25,10 +25,6 @@
     width: 195px;
     border-radius: 5px 5px 5px 5px;
 }
-
-/*.main .user_input .selected {*/
-/*    background: red;*/
-/*}*/
 
 .main .user_input .Y_value {
     margin: 16px;

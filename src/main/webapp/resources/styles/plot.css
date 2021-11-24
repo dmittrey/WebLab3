@@ -10,6 +10,10 @@
     transition: 0.5s;
 }
 
+.main .user_input #plotInput {
+    display: none;
+}
+
 .main .user_input #plot * {
     transition: 0.5s;
 }

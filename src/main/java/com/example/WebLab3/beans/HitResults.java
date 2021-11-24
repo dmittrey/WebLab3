@@ -8,6 +8,7 @@ import java.util.List;
 
 @Data
 public class HitResults {
+    //todo Разложить ответственность
     //todo Сделать orm
     private Hit newHit = new Hit();
 
@@ -17,6 +18,15 @@ public class HitResults {
         hitList.add(newHit);
         System.out.println(hitList.size());
         newHit = new Hit();
+    }
+
+    public void addClick(Hit hit) {
+        hitList.add(hit);
+        System.out.println(hitList.size());
+    }
+
+    public void print() {
+        System.out.println("Hi bro!");
     }
 
     public void resetHit() {
