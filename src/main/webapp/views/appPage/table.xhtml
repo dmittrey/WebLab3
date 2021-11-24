@@ -12,8 +12,9 @@
             </h:commandButton>
         </div>
 
-        <!-- Таблица регистрирующая попадания -->
-        <h:dataTable value = "${hitResults.hitList}" var = "hit"
+<!--         Таблица регистрирующая попадания -->
+        <h:dataTable value = "${hitResults.hitList}"
+                     var = "hit"
                      styleClass = "hitTable"
                      id="hitTable">
 
@@ -44,7 +45,7 @@
 
             <h:column>
                 <f:facet name = "header">HIT RESULT</f:facet>
-                ${hit.result}
+                ${hit.resultConvertToTable()}
             </h:column>
         </h:dataTable>
     </section>

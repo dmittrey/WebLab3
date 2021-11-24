@@ -2,7 +2,6 @@ package com.example.WebLab3.entity;
 
 import lombok.Data;
 
-//todo Сделать конвертер для таблицы
 @Data
 public class Hit {
     private Double x;
@@ -10,5 +9,11 @@ public class Hit {
     private Double r;
     private String currentTime;
     private long executionTime;
-    private boolean result;
+    private Boolean result;
+
+    public String resultConvertToTable() {
+        return (result != null)
+                ? result ? "<span style='color: green'>TRUE" : "<span style='color: red'>FALSE" + "</span>"
+                : "null";
+    }
 }
