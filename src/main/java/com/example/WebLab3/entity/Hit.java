@@ -5,9 +5,9 @@ import lombok.Data;
 //todo Сделать конвертер для таблицы
 @Data
 public class Hit {
-    private double x;
-    private double y;
-    private double r;
+    private Double x;
+    private Double y;
+    private Double r;
     private String currentTime;
     private long executionTime;
     private boolean result;

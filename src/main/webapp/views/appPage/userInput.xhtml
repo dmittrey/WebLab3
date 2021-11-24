@@ -6,7 +6,6 @@
         xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
     <h:outputStylesheet name="styles/user_input.css"/>
     <h:outputScript name="scripts/graphHandler.js"/>
-
     <!-- Форма для отправки данных серверу с помощью метода POST -->
     <h:form id="form">
 
@@ -41,8 +40,8 @@
                              maxlength="6"
                              pt:placeholder="Заполни меня"
                              required="true"
-                             requiredMessage="Введите координату X!"
-                             converterMessage="Параметр X задается действительным числом!"
+                             requiredMessage="Введите координату Y!"
+                             converterMessage="Параметр Y задается действительным числом!"
                              validatorMessage="Параметр Y задается числом в промежутке (-5...3)!">
                     <f:validator validatorId="xAndYValidator"/>;
                     <f:ajax render="Y_error"/>
@@ -53,14 +52,17 @@
             <div class="R_value">
 
                 <!-- Поле ввода значения R -->
-                <!-- todo Написать при сбросе сброс ползунка -->
                 <h:outputLabel for="R_value" value="R value:"/>
                 <h:inputText id="R_value"
                              styleClass="sliderValue"
                              value="#{hitResults.newHit.r}"
                              pt:placeholder="Заполни меня"
                              required="true"
-                             requiredMessage="Введите координату R!"/>
+                             requiredMessage="Введите координату R!"
+                             converterMessage="Параметр R задается действительным числом!"
+                             validatorMessage="Параметр R задается числом в промежутке [2...5]!">
+                    <f:validateDoubleRange minimum="2" maximum="5"/>;
+                </h:inputText>
                 <p:slider for="R_value" styleClass="slider" minValue="2" maxValue="5" step="0.1"/>
             </div>
         </div>
@@ -68,6 +70,7 @@
         <div class="Error_text">
             <h:message id="X_error" for="X_value"/>
             <h:message id="Y_error" for="Y_value"/>
+            <h:message id="R_error" for="R_value"/>
         </div>
 
         <!-- Блок для кнопок отправки и обнуления -->
@@ -75,7 +78,9 @@
             <h:commandButton id="submit" styleClass="submit" value="SUBMIT" action="#{hitResults.addHit}">
                 <f:ajax execute="form" render="hitTable"/>
             </h:commandButton>
-            <input id="reset" type="reset" value="RESET"/>
+            <p:commandButton id="reset" value="reset" update="form" process="@this" action="#{hitResults.resetHit}">
+                <p:resetInput target="form"/>
+            </p:commandButton>
         </div>
     </h:form>
     <!--    <h:outputScript name="scripts/dataHandler.js"/>-->

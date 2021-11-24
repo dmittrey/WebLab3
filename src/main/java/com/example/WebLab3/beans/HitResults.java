@@ -19,6 +19,12 @@ public class HitResults {
         newHit = new Hit();
     }
 
+    public void resetHit() {
+        newHit.setX(null);
+        newHit.setY(null);
+        newHit.setR(null);
+    }
+
     public void clear() {
         hitList.clear();
         newHit = new Hit();
