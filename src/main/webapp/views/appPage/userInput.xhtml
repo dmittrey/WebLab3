@@ -6,6 +6,7 @@
         xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
     <h:outputStylesheet name="styles/user_input.css"/>
     <h:outputScript name="scripts/graphHandler.js"/>
+
     <!-- Форма для отправки данных серверу с помощью метода POST -->
     <h:form id="form">
 
@@ -78,11 +79,15 @@
             <h:commandButton id="submit" styleClass="submit" value="SUBMIT" action="#{hitResults.addHit}">
                 <f:ajax execute="form" render="hitTable"/>
             </h:commandButton>
-            <p:commandButton id="reset" value="reset" update="form" process="@this" action="#{hitResults.resetHit}">
+            <p:commandButton id="reset" styleClass="reset" value="RESET" update="form" process="@this" action="#{hitResults.resetHit}">
                 <p:resetInput target="form"/>
             </p:commandButton>
+
         </div>
     </h:form>
+    <script>
+        $('#reset').removeClass("ui-button").removeClass(".ui-button-text-only .ui-button-text").removeClass(".ui-button .ui-button-text");
+    </script>
     <!--    <h:outputScript name="scripts/dataHandler.js"/>-->
     <!--    <h:outputScript name="scripts/requestHandler.js"/>-->
     <!--    <h:outputScript name="scripts/alertHandler.js"/>-->
