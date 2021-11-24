@@ -7,7 +7,9 @@
 
         <!-- Кнопка очистки таблицы -->
         <div id="cleaner">
-            <button>CLEAN TABLE</button>
+            <h:commandButton styleClass="cleanerButton" value="CLEAN TABLE" action="#{hitResults.clear}">
+                <f:ajax render="hitTable"/>
+            </h:commandButton>
         </div>
 
         <!-- Таблица регистрирующая попадания -->

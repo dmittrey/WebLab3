@@ -10,18 +10,18 @@
     left: 430px;
 }
 
-.main .table_section #cleaner button {
+.main .table_section #cleaner .cleanerButton {
     color: whitesmoke;
     background: rgba(0, 0, 0, 0.83);
     width: 175px;
     height: 40px;
 }
 
-.main .table_section #cleaner button:hover {
+.main .table_section #cleaner .cleanerButton:hover {
     box-shadow: 0 0 10px 5px navajowhite;
 }
 
-.main .table_section #cleaner button:active {
+.main .table_section #cleaner .cleanerButton:active {
     box-shadow: 0 0 10px 5px #f41c52;
 }
 
@@ -46,6 +46,9 @@
     background: rgb(29, 29, 29);
 }
 
-#hitTable td, th {
+#hitTable td {
+    text-align: center;
+    font-size: 20px;
+    font-weight: 1000;
     padding: 3px;
 }

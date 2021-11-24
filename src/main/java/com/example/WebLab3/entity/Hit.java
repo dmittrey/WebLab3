@@ -1,7 +1,8 @@
-package com.example.WebLab3.beans;
+package com.example.WebLab3.entity;
 
 import lombok.Data;
 
+//todo Сделать конвертер для таблицы
 @Data
 public class Hit {
     private double x;

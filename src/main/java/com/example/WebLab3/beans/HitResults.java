@@ -1,19 +1,13 @@
 package com.example.WebLab3.beans;
 
+import com.example.WebLab3.entity.Hit;
 import lombok.Data;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import java.util.ArrayList;
 import java.util.List;
 
 @Data
-@ManagedBean
-@SessionScoped
 public class HitResults {
-    //todo Сделать очистку листа на кнопку
-    //todo Сделать валидаторы
-    //todo Сделать архитектуру нормальную с перекладыванием ответственности
     //todo Сделать orm
     private Hit newHit = new Hit();
 
@@ -22,6 +16,11 @@ public class HitResults {
     public void addHit() {
         hitList.add(newHit);
         System.out.println(hitList.size());
+        newHit = new Hit();
+    }
+
+    public void clear() {
+        hitList.clear();
         newHit = new Hit();
     }
 }

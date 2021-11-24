@@ -8,7 +8,6 @@
         <navigation-case>
             <from-outcome>to_app</from-outcome>
             <to-view-id>/views/app.xhtml</to-view-id>
-<!--            <redirect/>-->
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
@@ -16,7 +15,12 @@
         <navigation-case>
             <from-outcome>to_start</from-outcome>
             <to-view-id>/views/entry.xhtml</to-view-id>
-<!--            <redirect/>-->
         </navigation-case>
     </navigation-rule>
+
+    <managed-bean>
+        <managed-bean-name>hitResults</managed-bean-name>
+        <managed-bean-class>com.example.WebLab3.beans.HitResults</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
 </faces-config>
