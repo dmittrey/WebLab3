@@ -1,7 +1,11 @@
 package com.example.WebLab3.beans;
 
 import com.example.WebLab3.entity.Hit;
+import com.example.WebLab3.exceptions.OutOfBoundCoordinates;
+import com.example.WebLab3.utility.HitService;
 import lombok.Data;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,23 +14,28 @@ import java.util.List;
 public class HitResults {
     //todo Разложить ответственность
     //todo Сделать orm
+    // Понять как вернуть в message
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private Hit newHit = new Hit();
-
     private List<Hit> hitList = new ArrayList<>();
+    private HitService hitService = new HitService();
 
     public void addHit() {
-        hitList.add(newHit);
-        System.out.println(hitList.size());
+        serviceHit(newHit);
         newHit = new Hit();
     }
 
-    public void addClick(Hit hit) {
-        hitList.add(hit);
-        System.out.println(hitList.size());
-    }
-
-    public void print() {
-        System.out.println("Hi bro!");
+    public void serviceHit(Hit hit) {
+        try {
+            logger.info("Hit service started with {}!", hit.toString());
+            long begin = System.nanoTime();
+            hitService.service(hit, begin);
+            hitList.add(hit);
+            logger.info("Now, size of results is: {}", hitList.size());
+//            shotDAO.save(this);  Проработать с запросом к бд
+        } catch (OutOfBoundCoordinates e) {
+            // Подумать как вывести сообщение об ошибке
+        }
     }
 
     public void resetHit() {

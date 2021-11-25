@@ -23,11 +23,10 @@
                              value="#{hitResults.newHit.x}"
                              maxlength="6"
                              pt:placeholder="Заполни меня"
-                             required="true"
                              requiredMessage="Введите координату X!"
                              converterMessage="Параметр X задается действительным числом!"
                              validatorMessage="Параметр X задается числом в промежутке (-5...3)!">
-                    <f:validator validatorId="xAndYValidator"/>;
+<!--                    <f:validator validatorId="xAndYValidator"/>;-->
                     <f:ajax render="X_error"/>
                 </h:inputText>
             </div>
@@ -41,11 +40,10 @@
                              value="#{hitResults.newHit.y}"
                              maxlength="6"
                              pt:placeholder="Заполни меня"
-                             required="true"
                              requiredMessage="Введите координату Y!"
                              converterMessage="Параметр Y задается действительным числом!"
                              validatorMessage="Параметр Y задается числом в промежутке (-5...3)!">
-                    <f:validator validatorId="xAndYValidator"/>;
+<!--                    <f:validator validatorId="xAndYValidator"/>;-->
                     <f:ajax render="Y_error"/>
                 </h:inputText>
             </div>
@@ -59,11 +57,11 @@
                              styleClass="sliderValue"
                              value="#{hitResults.newHit.r}"
                              pt:placeholder="Заполни меня"
-                             required="true"
                              requiredMessage="Введите координату R!"
                              converterMessage="Параметр R задается действительным числом!"
                              validatorMessage="Параметр R задается числом в промежутке [2...5]!">
                     <f:validateDoubleRange minimum="2" maximum="5"/>;
+                    <f:ajax render="R_error"/>
                 </h:inputText>
                 <p:slider for="R_value" styleClass="slider" minValue="2" maxValue="5" step="0.1"/>
             </div>

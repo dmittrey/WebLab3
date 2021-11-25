@@ -25,6 +25,6 @@ public class ClickBean {
         newClick.setX(Double.valueOf(x));
         newClick.setY(Double.valueOf(y));
         newClick.setR(3.0);
-        hitResults.addClick(newClick);
+        hitResults.serviceHit(newClick);
     }
 }
