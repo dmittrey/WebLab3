@@ -12,7 +12,6 @@ import java.util.List;
 
 @Data
 public class HitResults {
-    //todo Разложить ответственность
     //todo Сделать orm
     // Понять как вернуть в message
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -23,6 +22,11 @@ public class HitResults {
     public void addHit() {
         serviceHit(newHit);
         newHit = new Hit();
+    }
+
+    public void serviceClick(Hit aClick) {
+        aClick.setR(newHit.getR());
+        serviceHit(aClick);
     }
 
     public void serviceHit(Hit hit) {

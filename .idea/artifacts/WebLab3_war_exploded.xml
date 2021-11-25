@@ -18,6 +18,9 @@
           <element id="library" level="project" name="Maven: com.sun.faces:jsf-impl:2.2.18" />
           <element id="library" level="project" name="Maven: org.projectlombok:lombok:1.18.22" />
           <element id="library" level="project" name="Maven: org.primefaces:primefaces:11.0.0-RC2" />
+          <element id="library" level="project" name="Maven: ch.qos.logback:logback-classic:1.2.3" />
+          <element id="library" level="project" name="Maven: ch.qos.logback:logback-core:1.2.3" />
+          <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:1.7.16" />
         </element>
       </element>
       <element id="directory" name="META-INF">

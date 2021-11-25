@@ -10,10 +10,4 @@ public class Hit {
     private String currentTime;
     private long executionTime;
     private Boolean result;
-
-    public String resultConvertToTable() {
-        return (result != null)
-                ? result ? "<span style='color: green'>TRUE" : "<span style='color: red'>FALSE" + "</span>"
-                : "null";
-    }
 }
