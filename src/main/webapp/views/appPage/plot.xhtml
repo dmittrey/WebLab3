@@ -2,26 +2,26 @@
         xmlns="http://www.w3.org/1999/xhtml"
         xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
         xmlns:h="http://java.sun.com/jsf/html"
-        xmlns:p="http://primefaces.org/ui"
-        xmlns:f="http://java.sun.com/jsf/core">
+        xmlns:p="http://primefaces.org/ui">
     <h:outputStylesheet name="styles/plot.css"/>
 
     <!-- Координатная плоскость с содержимым -->
     <div id='plot'></div>
 
     <!-- Метод js для вызова метода на бине (ex. rc([{name: 'x', value: x}, {name: 'y', value: y}]))-->
-    <p:remoteCommand name="addClick" update="hitTable" action="#{clickBean.addClick}"/>
+    <p:remoteCommand name="addClick" update="msgs, hitTable" action="#{clickBean.addClick}"/>
+
+    <p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true" widgetVar="msgsWidget" />
 
     <!-- todo Закинуть в windwoHandler и причесать скрипты -->
     <script type="text/javascript">
         $('#plot').on("click", (e) => {
             let x = convertToCoordinatesX(e.pageX - 99.5);
             let y = convertToCoordinatesY(e.pageY - 175);
+            console.log(x + " " + y);
             addClick([{name: 'x', value: x}, {name: 'y', value: y}]);
         });
     </script>
-
-    <p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true" widgetVar="msgsWidget" />
 
     <h:outputScript name="scripts/graphHandler.js"/>
 </ui:composition>

@@ -20,9 +20,9 @@
         </navigation-case>
     </navigation-rule>
 
-    <managed-bean>
-        <managed-bean-name>hitResults</managed-bean-name>
-        <managed-bean-class>com.example.WebLab3.beans.HitResults</managed-bean-class>
-        <managed-bean-scope>session</managed-bean-scope>
-    </managed-bean>
+<!--    <managed-bean>-->
+<!--        <managed-bean-name>hitResults</managed-bean-name>-->
+<!--        <managed-bean-class>com.example.WebLab3.beans.HitResults</managed-bean-class>-->
+<!--        <managed-bean-scope>session</managed-bean-scope>-->
+<!--    </managed-bean>-->
 </faces-config>

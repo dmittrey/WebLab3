@@ -1,30 +1,52 @@
 package com.example.WebLab3.utility;
 
 import com.example.WebLab3.entity.Hit;
-import com.example.WebLab3.exceptions.OutOfBoundCoordinates;
 import lombok.NoArgsConstructor;
+
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 
 @NoArgsConstructor
 public class HitValidator {
 
-    public void validate(Hit hit) throws OutOfBoundCoordinates {
-        validateX(hit.getX());
-        validateY(hit.getY());
-        validateR(hit.getR());
+    public boolean validate(Hit hit) {
+        return validateX(hit.getX())
+                & validateY(hit.getY())
+                & validateR(hit.getR());
     }
 
-    private void validateX(double xCoordinate) throws OutOfBoundCoordinates {
-        if (xCoordinate < -3 || xCoordinate > 3)
-            throw new OutOfBoundCoordinates("x", xCoordinate);
+    private boolean validateX(Double xCoordinate) {
+        String warning;
+        if (xCoordinate != null) {
+            if (xCoordinate > -5 && xCoordinate < 3) return true;
+            else warning = "Coordinate x is out of bounds(" + xCoordinate + ")!";
+        } else warning = "Coordinate x is not exist!";
+        createMessage(warning);
+        return false;
     }
 
-    private void validateY(double yCoordinate) throws OutOfBoundCoordinates {
-        if (yCoordinate < -5 || yCoordinate > 5)
-            throw new OutOfBoundCoordinates("y", yCoordinate);
+    private boolean validateY(Double yCoordinate) {
+        String warning;
+        if (yCoordinate != null) {
+            if (yCoordinate > -5 && yCoordinate < 3) return true;
+            else warning = "Coordinate y is out of bounds(" + yCoordinate + ")!";
+        } else warning = "Coordinate y is not exist!";
+        createMessage(warning);
+        return false;
     }
 
-    private void validateR(double rCoordinate) throws OutOfBoundCoordinates {
-        if (rCoordinate < 2 || rCoordinate > 5)
-            throw new OutOfBoundCoordinates("r", rCoordinate);
+    private boolean validateR(Double rCoordinate) {
+        String warning;
+        if (rCoordinate != null) {
+            if (rCoordinate >= 2 && rCoordinate <= 5) return true;
+            else warning = "Coordinate r is out of bounds(" + rCoordinate + ")!";
+        } else warning = "Coordinate r is not exist!";
+        createMessage(warning);
+        return false;
+    }
+
+    private void createMessage(String message) {
+        FacesContext.getCurrentInstance().addMessage(null,
+                new FacesMessage(FacesMessage.SEVERITY_WARN, "Validation failed", message));
     }
 }

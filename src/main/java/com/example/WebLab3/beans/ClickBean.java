@@ -13,7 +13,6 @@ import javax.faces.context.FacesContext;
 @Data
 public class ClickBean {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
-
     private double x;
     private double y;
 
@@ -28,6 +27,7 @@ public class ClickBean {
         Hit newClick = new Hit();
         newClick.setX(Double.valueOf(x));
         newClick.setY(Double.valueOf(y));
+        newClick.setR(hitResults.getNewHit().getR());
         hitResults.serviceClick(newClick);
     }
 }

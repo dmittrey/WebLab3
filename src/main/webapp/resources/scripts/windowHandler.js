@@ -3,15 +3,15 @@ window.onload = () => {
         drawPlot()
     }
     //
-    $("#plot").on("click", (e) => {
-        let coordinates = {};
-        coordinates.x = convertToCoordinatesX(e.pageX - 99.5);
-        coordinates.y = convertToCoordinatesY(e.pageY - 175);
-        $("#clickX").val(coordinates.x);
-        $("#clickY").val(coordinates.y);
-        $("#clickSubmit").click();
-        console.log(coordinates.x + " " + coordinates.y);
-    });
+    // $("#plot").on("click", (e) => {
+    //     let coordinates = {};
+    //     coordinates.x = convertToCoordinatesX(e.pageX - 99.5);
+    //     coordinates.y = convertToCoordinatesY(e.pageY - 175);
+    //     $("#clickX").val(coordinates.x);
+    //     $("#clickY").val(coordinates.y);
+    //     $("#clickSubmit").click();
+    //     console.log(coordinates.x + " " + coordinates.y);
+    // });
 
 // $(".X_value").on("click", (e) => {
 //     let x = e.target;

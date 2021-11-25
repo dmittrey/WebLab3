@@ -22,13 +22,7 @@
                 <h:inputText id="X_value"
                              value="#{hitResults.newHit.x}"
                              maxlength="6"
-                             pt:placeholder="Заполни меня"
-                             requiredMessage="Введите координату X!"
-                             converterMessage="Параметр X задается действительным числом!"
-                             validatorMessage="Параметр X задается числом в промежутке (-5...3)!">
-<!--                    <f:validator validatorId="xAndYValidator"/>;-->
-                    <f:ajax render="X_error"/>
-                </h:inputText>
+                             pt:placeholder="Заполни меня"/>
             </div>
 
             <!-- Блок для значения Y -->
@@ -39,13 +33,7 @@
                 <h:inputText id="Y_value"
                              value="#{hitResults.newHit.y}"
                              maxlength="6"
-                             pt:placeholder="Заполни меня"
-                             requiredMessage="Введите координату Y!"
-                             converterMessage="Параметр Y задается действительным числом!"
-                             validatorMessage="Параметр Y задается числом в промежутке (-5...3)!">
-<!--                    <f:validator validatorId="xAndYValidator"/>;-->
-                    <f:ajax render="Y_error"/>
-                </h:inputText>
+                             pt:placeholder="Заполни меня"/>
             </div>
 
             <!-- Блок для значения R -->
@@ -54,40 +42,47 @@
                 <!-- Поле ввода значения R -->
                 <h:outputLabel for="R_value" value="R value:"/>
                 <h:inputText id="R_value"
-                             styleClass="sliderValue"
-                             value="#{hitResults.newHit.r}"
-                             pt:placeholder="Заполни меня"
-                             required="true"
-                             requiredMessage="Введите координату R!"
-                             converterMessage="Параметр R задается действительным числом!"
-                             validatorMessage="Параметр R задается числом в промежутке [2...5]!">
-                    <f:validateDoubleRange minimum="2" maximum="5"/>;
-                    <f:ajax render="R_error"/>
+                              styleClass="sliderValue"
+                              value="#{hitResults.newHit.r}"
+                              pt:placeholder="Заполни меня"
+                              required="true"
+                              requiredMessage="Введите координату R!"
+                              converterMessage="Параметр R задается действительным числом!"
+                              validatorMessage="Параметр R задается числом в промежутке [2...5]!"
+                >
+                    <f:validateDoubleRange minimum="2" maximum="5"/>
                 </h:inputText>
                 <p:slider for="R_value" styleClass="slider" minValue="2" maxValue="5" step="0.1"/>
             </div>
         </div>
 
-        <div class="Error_text">
-            <h:message id="X_error" for="X_value"/>
-            <h:message id="Y_error" for="Y_value"/>
-            <h:message id="R_error" for="R_value"/>
-        </div>
+        <p:remoteCommand name="rc" update="msgs" action="#{hitResults.addHit}"/>
+
+        <p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true" widgetVar="msgsWidget"/>
+
+        <!--        <p:remoteCommand name="updateXAlert" update="X_error"/>-->
+        <!--        <p:remoteCommand name="updateYAlert" update="Y_error"/>-->
+        <!--        <p:remoteCommand name="updateRAlert" update="R_error"/>-->
+
+        <!--        <h:panelGroup id="Error_text" styleClass="Error_text">-->
+        <!--            <h:outputText id="X_error" value="${alertBean.XAlert}"/>-->
+        <!--            <h:outputText id="Y_error" value="${alertBean.YAlert}"/>-->
+        <!--            <h:outputText id="R_error" value="${alertBean.RAlert}"/>-->
+        <!--        </h:panelGroup>-->
 
         <!-- Блок для кнопок отправки и обнуления -->
         <div class="buttons">
-            <h:commandButton id="submit" styleClass="submit" value="SUBMIT" action="#{hitResults.addHit}">
-                <f:ajax execute="form" render="hitTable"/>
+            <h:commandButton id="submit" styleClass="submit" value="SUBMIT" onclick="rc()">
+                <f:ajax render="hitTable"/>
             </h:commandButton>
-            <p:commandButton id="reset" styleClass="reset" value="RESET" update="form" process="@this" action="#{hitResults.resetHit}">
+
+            <p:commandButton id="reset" styleClass="reset" value="RESET" update="form" process="@this"
+                             action="#{hitResults.resetHit}">
                 <p:resetInput target="form"/>
             </p:commandButton>
 
         </div>
     </h:form>
-    <script>
-        $('#reset').removeClass("ui-button").removeClass(".ui-button-text-only .ui-button-text").removeClass(".ui-button .ui-button-text");
-    </script>
     <!--    <h:outputScript name="scripts/dataHandler.js"/>-->
     <!--    <h:outputScript name="scripts/requestHandler.js"/>-->
     <!--    <h:outputScript name="scripts/alertHandler.js"/>-->
