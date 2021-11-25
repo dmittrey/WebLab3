@@ -8,13 +8,12 @@
 <h:head>
     <title>Entry Page</title>
     <h:outputScript library="primefaces" name="jquery/jquery.js" />
-    <script type="text/javascript"
-            src="https://cdn.rawgit.com/JDMcKinstry/JavaScriptDateFormat/master/Date.format.min.js"></script>
+    <script type="text/javascript" src="https://cdn.rawgit.com/JDMcKinstry/JavaScriptDateFormat/master/Date.format.min.js">
+    </script>
+    <h:outputStylesheet name="styles/body.css"/>
 </h:head>
 
 <h:body>
-    <h:outputStylesheet name="styles/body.css"/>
-
     <ui:include src="generalPage/header.xhtml"/>
     <ui:include src="entryPage/icons.xhtml"/>
     <ui:include src="entryPage/time.xhtml"/>

@@ -10,7 +10,7 @@
     transition: 0.5s;
 }
 
-.main .user_input form:hover {
+.main .user_input #form:hover {
     box-shadow: 0 0 40px 5px #f41c52;
 }
 
@@ -56,7 +56,7 @@
     left: 54px;
 }
 
-.main .user_input .Error_text {
+.main .user_input #Error_text {
     margin: 15px;
     position: relative;
     top: 45px;
@@ -65,7 +65,7 @@
     font-size: 20px;
 }
 
-.main .user_input .Error_text * {
+.main .user_input #Error_text * {
     border: none;
     outline: none;
     text-align: center;
@@ -78,8 +78,9 @@
 
 .main .user_input .buttons {
     position: absolute;
-    left: 100px;
+    left: 37%;
     top: 280px;
+    align-items: center;
 }
 
 .main .user_input .buttons * {
@@ -90,8 +91,8 @@
     cursor: pointer;
     color: whitesmoke;
     background: rgba(49, 49, 49, 0.83);
-    width: 150px;
-    height: 30px;
+    width: 200%;
+    height: 40px;
     font-family: 'ZCOOL KuaiLe', 'Times New Roman', serif;
     padding: 0;
     font-size: 1rem;

@@ -42,14 +42,13 @@
                 <!-- Поле ввода значения R -->
                 <h:outputLabel for="R_value" value="R value:"/>
                 <h:inputText id="R_value"
-                              styleClass="sliderValue"
-                              value="#{hitResults.newHit.r}"
-                              pt:placeholder="Заполни меня"
-                              required="true"
-                              requiredMessage="Введите координату R!"
-                              converterMessage="Параметр R задается действительным числом!"
-                              validatorMessage="Параметр R задается числом в промежутке [2...5]!"
-                >
+                             styleClass="sliderValue"
+                             value="#{hitResults.newHit.r}"
+                             pt:placeholder="Заполни меня"
+                             required="true"
+                             requiredMessage="Введите координату R!"
+                             converterMessage="Параметр R задается действительным числом!"
+                             validatorMessage="Параметр R задается числом в промежутке [2...5]!">
                     <f:validateDoubleRange minimum="2" maximum="5"/>
                 </h:inputText>
                 <p:slider for="R_value" styleClass="slider" minValue="2" maxValue="5" step="0.1"
@@ -58,34 +57,22 @@
             </div>
         </div>
 
-        <p:remoteCommand name="rc" update="msgs" action="#{hitResults.addHit}"/>
-
+        <p:remoteCommand name="addHit" update="msgs" action="#{hitResults.addHit}"/>
         <p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true" widgetVar="msgsWidget"/>
 
-        <!--        <p:remoteCommand name="updateXAlert" update="X_error"/>-->
-        <!--        <p:remoteCommand name="updateYAlert" update="Y_error"/>-->
-        <!--        <p:remoteCommand name="updateRAlert" update="R_error"/>-->
+        <div id="Error_text">
+            <span id="X_error"/>
+            <span id="Y_error"/>
+            <span id="R_error"/>
+        </div>
 
-        <!--        <h:panelGroup id="Error_text" styleClass="Error_text">-->
-        <!--            <h:outputText id="X_error" value="${alertBean.XAlert}"/>-->
-        <!--            <h:outputText id="Y_error" value="${alertBean.YAlert}"/>-->
-        <!--            <h:outputText id="R_error" value="${alertBean.RAlert}"/>-->
-        <!--        </h:panelGroup>-->
-
-        <!-- Блок для кнопок отправки и обнуления -->
+        <!-- Блок для кнопки отправки -->
         <div class="buttons">
-            <h:commandButton id="submit" styleClass="submit" value="SUBMIT" onclick="rc()">
+            <h:commandButton id="submit" styleClass="submit" value="SUBMIT" onclick="processSubmit()">
                 <f:ajax render="hitTable"/>
             </h:commandButton>
-
-            <p:commandButton id="reset" styleClass="reset" value="RESET" update="form" process="@this"
-                             action="#{hitResults.resetHit}">
-                <p:resetInput target="form"/>
-            </p:commandButton>
-
         </div>
     </h:form>
-    <!--    <h:outputScript name="scripts/dataHandler.js"/>-->
-    <!--    <h:outputScript name="scripts/requestHandler.js"/>-->
-    <!--    <h:outputScript name="scripts/alertHandler.js"/>-->
+    <h:outputScript name="scripts/validator.js"/>
+    <h:outputScript name="scripts/alertHandler.js"/>
 </ui:composition>

@@ -47,6 +47,6 @@ public class HitValidator {
 
     private void createMessage(String message) {
         FacesContext.getCurrentInstance().addMessage(null,
-                new FacesMessage(FacesMessage.SEVERITY_WARN, "Validation failed", message));
+                new FacesMessage(FacesMessage.SEVERITY_WARN, "Server validation", message));
     }
 }

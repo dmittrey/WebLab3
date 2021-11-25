@@ -6,7 +6,7 @@
     transition: 0.5s;
 }
 
-.settingsIcon {
+.gitIcon {
     position: absolute;
     left: 84vw;
     top: -35px;
@@ -14,7 +14,7 @@
     transition: 0.5s;
 }
 
-.gitIcon {
+.settingsIcon {
     position: absolute;
     left: 78vw;
     top: -35px;
