@@ -5,6 +5,7 @@ import com.example.WebLab3.exceptions.CoordinatesNotExist;
 import com.example.WebLab3.exceptions.OutOfBoundCoordinates;
 import com.example.WebLab3.utility.HitService;
 import lombok.Data;
+import org.primefaces.PrimeFaces;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

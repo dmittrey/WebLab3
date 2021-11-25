@@ -4,10 +4,7 @@ window.onload = () => {
     }
 
     $('#plot').on("click", (e) => {
-        let x = convertToCoordinatesX(e.pageX - 99.5);
-        let y = convertToCoordinatesY(e.pageY - 175);
-        console.log(x + " " + y);
-        addClick([{name: 'x', value: x}, {name: 'y', value: y}]);
+        runCommand(e); // draw and add point
     });
 
 // $(".X_value").on("click", (e) => {
@@ -25,6 +22,10 @@ window.onload = () => {
 //     }
 //     injectYAlert(y.value);
 // });
+
+    document.getElementById("form:R_value").oninput = (e) => {
+        console.log(document.getElementById("form:R_value").value);
+    };
 
 // $('#R_value').on("input", (e) => {
 //     let r = e.target;

@@ -5,15 +5,38 @@
         xmlns:p="http://primefaces.org/ui">
     <h:outputStylesheet name="styles/plot.css"/>
 
+<!--    <p:remoteCommand name="updatePlot" update="plotWrapper"/>-->
+
     <!-- Координатная плоскость с содержимым -->
-    <div id='plot'></div>
+<!--    <h:panelGroup id="plotWrapper">-->
+        <div id='plot'></div>
+<!--    </h:panelGroup>-->
 
     <!-- Метод js для вызова метода на бине (ex. rc([{name: 'x', value: x}, {name: 'y', value: y}]))-->
-    <p:remoteCommand name="addClick" update="msgs, hitTable" action="#{clickBean.addClick}"/>
+    <p:remoteCommand name="addClick" update="msgs, hitTable" action="#{clickBean.addClick}">
+        <p:ajax oncomplete="click"
+    </p:remoteCommand>
 
-    <p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true" widgetVar="msgsWidget" />
+    <!-- Алерты для вывода результата валидации сервера -->
+    <p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true" widgetVar="msgsWidget"/>
 
+    <script type="text/javascript">
 
+//todo Передать его в скрипт
+// todo Почистить некоторые скрипты
+//todo по сути можно оставить только прорисовку на слайдер и понять как добавлять точки через ресет дотс
+        function runCommand(e) {
+            let promise = addClick();
+            promise.then(function (responseData) {
+                let hitResult = responseData.jqXHR.pfArgs.hitResult;
+                clickPointEvent(e);
+                console.log("Request successful, returned server time is", hitResult);
+            }).catch(function (error) {
+                console.error("Request failed", error);
+            });
+        }
+    </script>
 
     <h:outputScript name="scripts/graphHandler.js"/>
+    <h:outputScript name="scripts/windowHandler.js"/>
 </ui:composition>

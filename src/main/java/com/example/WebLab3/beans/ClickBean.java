@@ -2,6 +2,7 @@ package com.example.WebLab3.beans;
 
 import com.example.WebLab3.entity.Hit;
 import lombok.Data;
+import org.primefaces.PrimeFaces;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,5 +30,6 @@ public class ClickBean {
         newClick.setY(Double.valueOf(y));
         newClick.setR(hitResults.getNewHit().getR());
         hitResults.serviceClick(newClick);
+        PrimeFaces.current().ajax().addCallbackParam("hitResult", newClick.getResult());
     }
 }

@@ -27,11 +27,6 @@ drawPlot = () => {
     }
 }
 
-slide = () => {
-    DEFAULT_R = $('#sliderValue').val();
-    drawPlot();
-}
-
 initPlot = () => {
     console.log("Строим без точек.")
     drawArea(DEFAULT_R);
@@ -45,7 +40,7 @@ drawPlotWithPoints = (attemptsArray) => {
     drawArea(DEFAULT_R);
     drawAxes();
     drawAxesScaleLabels(DEFAULT_R);
-    attemptsArray.forEach(point => drawPoint(point.x, point.y, point.result, DEFAULT_R));
+    attemptsArray.forEach(point => drawPoint(point.x, point.y, point.r));
     drawRValue(DEFAULT_R);
 }
 
@@ -154,39 +149,44 @@ drawArea = (r) => {
         .fill(TRIANGLE_COLOR);
 }
 
-drawPoint = (x, y, result, pointScale) => {
-    let color = (result === "false" || result === undefined) ? '#f00' : '#0f0';
+drawPoint = (x, y, pointScale) => {
+    // let color = (result === "false" || result === undefined) ? '#f00' : '#0f0';
+    let color = "#f00";
     CANVAS.circle(pointScale * 2).fill(color).move(convertX(x) - pointScale, convertY(y) - pointScale);
 }
 
 clickPointEvent = (event) => {
     let coordinates = getCoords(event);
     console.log("Click working at coordinates: " + coordinates.x + ", " + coordinates.y + ", " + coordinates.r);
-    if (validateR(coordinates.r)) sendGraphRequest(coordinates);
-    else injectRAlert(coordinates.r);
+    // if (validateR(coordinates.r)) {
+    addPoint(coordinates.x, coordinates.y, coordinates.r);
+    drawPoint(coordinates.x, coordinates.y, coordinates.r);
+    addClick([{name: 'x', value: coordinates.x}, {name: 'y', value: coordinates.y}]); // add click in db
+    // }
+    // else injectRAlert(coordinates.r);
 }
 
 getCoords = (event) => {
     let coordinates = {};
     coordinates.x = convertToCoordinatesX(event.pageX - 99.5);
     coordinates.y = convertToCoordinatesY(event.pageY - 175);
-    coordinates.r = $("#R_value").val();
+    coordinates.r = document.getElementById("form:R_value").value;
     return coordinates;
 }
 
-switchRadius = (values) => {
-    console.log("Radius switched to: " + values.r);
-    DEFAULT_R = values.r;
+switchRadius = () => {
+    DEFAULT_R = document.getElementById("form:R_value").value;
+    console.log("Radius switched to: " + DEFAULT_R);
     $('#plot').empty();
     drawPlot();
 }
 
-addPoint = (x, y, r, result) => {
+addPoint = (x, y, r) => {
     attemptsArray.push({
         x: x,
         y: y,
         r: r,
-        result: result,
+        // result: result,
     });
 }
 

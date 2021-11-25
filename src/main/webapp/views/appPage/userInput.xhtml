@@ -52,7 +52,9 @@
                 >
                     <f:validateDoubleRange minimum="2" maximum="5"/>
                 </h:inputText>
-                <p:slider for="R_value" styleClass="slider" minValue="2" maxValue="5" step="0.1"/>
+                <p:slider for="R_value" styleClass="slider" minValue="2" maxValue="5" step="0.1"
+                          onSlide="switchRadius()"
+                          onSlideEnd="switchRadius()"/>
             </div>
         </div>
 
