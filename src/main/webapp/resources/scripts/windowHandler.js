@@ -1,5 +1,17 @@
 window.onload = () => {
-    {drawPlot()} //draw plot on start
+
+    let promise = getDots();
+    promise.then(function (responseData) {
+        let dots = responseData.jqXHR.pfArgs.dotsJSON;
+        console.log("dotJSON request successful!");
+        if (dots !== undefined) {
+            resetDots(JSON.parse(dots));
+            switchRadius();
+        }
+        {drawPlot()}
+    }).catch(function (error) {
+        console.error("Request failed", error);
+    });
 
     $('#plot').on("click", (e) => {
         clickPointEvent(e);// draw and add point

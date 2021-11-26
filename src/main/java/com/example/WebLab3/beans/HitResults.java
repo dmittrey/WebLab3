@@ -1,19 +1,19 @@
 package com.example.WebLab3.beans;
 
 import com.example.WebLab3.entity.Hit;
-import com.example.WebLab3.exceptions.CoordinatesNotExist;
-import com.example.WebLab3.exceptions.OutOfBoundCoordinates;
 import com.example.WebLab3.utility.HitService;
 import lombok.Data;
+import org.kopitubruk.util.json.JSONUtil;
 import org.primefaces.PrimeFaces;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @ManagedBean
 @SessionScoped
@@ -44,14 +44,17 @@ public class HitResults {
 //            shotDAO.save(this);  Проработать с запросом к бд
     }
 
-    public void resetHit() {
-        newHit.setX(null);
-        newHit.setY(null);
-        newHit.setR(null);
-    }
-
     public void clear() {
         hitList.clear();
         newHit = new Hit();
+    }
+
+    public void getJsonDots() {
+        Set<String> jsonHitList = new HashSet<>();
+        hitList.forEach(hit -> {
+            String jsonHit = hit.jsonHit();
+            jsonHitList.add(jsonHit);
+        });
+        PrimeFaces.current().ajax().addCallbackParam("dotsJSON", JSONUtil.toJSON(jsonHitList));
     }
 }

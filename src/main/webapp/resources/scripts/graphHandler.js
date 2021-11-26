@@ -42,7 +42,7 @@ drawPlotWithPoints = (attemptsArray) => {
     drawArea(DEFAULT_R);
     drawAxes();
     drawAxesScaleLabels(DEFAULT_R);
-    attemptsArray.forEach(point => drawPoint(point.x, point.y, point.r, point.result));
+    attemptsArray.forEach(point => drawPoint(point.x, point.y, point.r, point.result === "true"));
     drawRValue(DEFAULT_R);
 }
 
@@ -207,6 +207,7 @@ resetDots = (newAttemptsArray) => {
             attemptsArray.push(JSON.parse(dot));
         })
     }
+    console.log("New attemptsArray: " + attemptsArray);
 }
 
 cleanPlot = () => {

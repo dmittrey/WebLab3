@@ -5,6 +5,9 @@
         xmlns:p="http://primefaces.org/ui">
     <h:outputStylesheet name="styles/plot.css"/>
 
+    <!-- todo Щас надо закинуть это в ввод js через промис -->
+    <p:remoteCommand name="getDots" action="#{hitResults.getJsonDots}"/>
+
     <!-- Координатная плоскость с содержимым -->
     <div id='plot'></div>
 
