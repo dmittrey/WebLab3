@@ -7,8 +7,7 @@ window.onload = () => {
         if (dots !== undefined) {
             resetDots(JSON.parse(dots));
             switchRadius();
-        }
-        {drawPlot()}
+        } else drawPlot();
     }).catch(function (error) {
         console.error("Request failed", error);
     });

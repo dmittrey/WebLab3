@@ -199,7 +199,6 @@ addPoint = (x, y, r, result) => {
     });
 }
 
-//  todo Уделить особое внимание этому методу на этапе заполнения
 resetDots = (newAttemptsArray) => {
     if (newAttemptsArray.length !== 0) {
         attemptsArray = [];
