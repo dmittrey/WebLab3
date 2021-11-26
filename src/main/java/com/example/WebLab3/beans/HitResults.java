@@ -1,6 +1,6 @@
 package com.example.WebLab3.beans;
 
-import com.example.WebLab3.DTO.DBManager;
+import com.example.WebLab3.DTO.HitDAO;
 import com.example.WebLab3.entity.Hit;
 import com.example.WebLab3.utility.HitService;
 import lombok.Data;
@@ -11,7 +11,6 @@ import org.slf4j.LoggerFactory;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
@@ -25,10 +24,8 @@ public class HitResults {
     private Hit newHit = new Hit();
     private List<Hit> hitList = new ArrayList<>();
     private HitService hitService = new HitService();
+    private HitDAO hitDAO = new HitDAO();
     private String sessionId;
-
-    @ManagedProperty(value = "${DBManager}")
-    private DBManager dbManager;
 
     @PostConstruct
     private void initialSessionId() {
@@ -52,7 +49,7 @@ public class HitResults {
         long begin = System.nanoTime();
         if (hitService.service(hit, begin)) {
             hitList.add(hit);
-            dbManager.persistHit(hit);
+            hitDAO.save(hit);
         }
         logger.info("Now, size of results is: {}", hitList.size());
     }
@@ -73,6 +70,6 @@ public class HitResults {
 
     @PreDestroy
     private void destroyOwnHits() {
-        dbManager.sessionHitList();
+        hitDAO.deleteAll();
     }
 }
