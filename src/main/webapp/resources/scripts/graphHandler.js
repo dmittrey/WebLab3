@@ -42,7 +42,7 @@ drawPlotWithPoints = (attemptsArray) => {
     drawArea(DEFAULT_R);
     drawAxes();
     drawAxesScaleLabels(DEFAULT_R);
-    attemptsArray.forEach(point => drawPoint(point.x, point.y, point.r, point.result === "true"));
+    attemptsArray.forEach(point => drawPoint(point.x, point.y, point.r, point.result));
     drawRValue(DEFAULT_R);
 }
 
@@ -154,7 +154,7 @@ drawArea = (r) => {
 }
 
 drawPoint = (x, y, pointScale, result) => {
-    let color = (result === false) ? '#f00' : '#0f0';
+    let color = (result === false || result === "false") ? '#f00' : '#0f0';
     CANVAS.circle(pointScale * 2).fill(color).move(convertX(x) - pointScale, convertY(y) - pointScale);
 }
 
@@ -207,7 +207,7 @@ resetDots = (newAttemptsArray) => {
             attemptsArray.push(JSON.parse(dot));
         })
     }
-    console.log("New attemptsArray: " + attemptsArray);
+    console.log(attemptsArray);
 }
 
 cleanPlot = () => {
