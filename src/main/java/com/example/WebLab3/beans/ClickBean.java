@@ -6,11 +6,9 @@ import org.primefaces.PrimeFaces;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 
-@ManagedBean
 @Data
 public class ClickBean {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
