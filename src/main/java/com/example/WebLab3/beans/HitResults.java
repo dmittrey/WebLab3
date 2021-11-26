@@ -1,6 +1,6 @@
 package com.example.WebLab3.beans;
 
-import com.example.WebLab3.DTO.DBManager;
+import com.example.WebLab3.dto.HitServiceDTO;
 import com.example.WebLab3.entity.Hit;
 import com.example.WebLab3.utility.HitService;
 import lombok.Data;
@@ -10,7 +10,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
@@ -27,8 +26,8 @@ public class HitResults {
     private HitService hitService = new HitService();
     private String sessionId;
 
-    @ManagedProperty(value = "${DBManager}")
-    private DBManager dbManager;
+    @ManagedProperty(value = "#{hitServiceDTO}")
+    private HitServiceDTO hitServiceDTO;
 
     @PostConstruct
     private void initialSessionId() {
@@ -52,7 +51,7 @@ public class HitResults {
         long begin = System.nanoTime();
         if (hitService.service(hit, begin)) {
             hitList.add(hit);
-            dbManager.persistHit(hit);
+            hitServiceDTO.save(hit);
         }
         logger.info("Now, size of results is: {}", hitList.size());
     }
@@ -69,10 +68,5 @@ public class HitResults {
             jsonHitList.add(jsonHit);
         });
         PrimeFaces.current().ajax().addCallbackParam("dotsJSON", JSONUtil.toJSON(jsonHitList));
-    }
-
-    @PreDestroy
-    private void destroyOwnHits() {
-        dbManager.sessionHitList();
     }
 }
