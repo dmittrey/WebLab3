@@ -8,6 +8,8 @@ import org.primefaces.PrimeFaces;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -15,6 +17,11 @@ import java.util.Set;
 
 @Data
 public class HitResults {
+
+    @PostConstruct
+    private void connectToDB() {
+
+    }
 
     //todo Сделать orm
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -52,5 +59,10 @@ public class HitResults {
             jsonHitList.add(jsonHit);
         });
         PrimeFaces.current().ajax().addCallbackParam("dotsJSON", JSONUtil.toJSON(jsonHitList));
+    }
+
+    @PreDestroy
+    private void destroySessionHits() {
+
     }
 }
