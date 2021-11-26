@@ -1,5 +1,6 @@
 package com.example.WebLab3.beans;
 
+import com.example.WebLab3.DTO.DBManager;
 import com.example.WebLab3.entity.Hit;
 import com.example.WebLab3.utility.HitService;
 import lombok.Data;
@@ -10,6 +11,9 @@ import org.slf4j.LoggerFactory;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.faces.bean.ManagedProperty;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -17,17 +21,21 @@ import java.util.Set;
 
 @Data
 public class HitResults {
-
-    @PostConstruct
-    private void connectToDB() {
-
-    }
-
-    //todo Сделать orm
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private Hit newHit = new Hit();
     private List<Hit> hitList = new ArrayList<>();
     private HitService hitService = new HitService();
+    private String sessionId;
+
+    @ManagedProperty(value = "${DBManager}")
+    private DBManager dbManager;
+
+    @PostConstruct
+    private void initialSessionId() {
+        FacesContext fCtx = FacesContext.getCurrentInstance();
+        HttpSession session = (HttpSession) fCtx.getExternalContext().getSession(true);
+        sessionId = session.getId();
+    }
 
     public void addHit() {
         serviceHit(newHit);
@@ -42,9 +50,11 @@ public class HitResults {
     public void serviceHit(Hit hit) {
         logger.info("Hit service started with {}!", hit.toString());
         long begin = System.nanoTime();
-        if (hitService.service(hit, begin)) hitList.add(hit);
+        if (hitService.service(hit, begin)) {
+            hitList.add(hit);
+            dbManager.persistHit(hit);
+        }
         logger.info("Now, size of results is: {}", hitList.size());
-//            shotDAO.save(this);  Проработать с запросом к бд
     }
 
     public void clear() {
@@ -62,7 +72,7 @@ public class HitResults {
     }
 
     @PreDestroy
-    private void destroySessionHits() {
-
+    private void destroyOwnHits() {
+        dbManager.sessionHitList();
     }
 }
