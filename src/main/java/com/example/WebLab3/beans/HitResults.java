@@ -1,6 +1,5 @@
 package com.example.WebLab3.beans;
 
-import com.example.WebLab3.dto.HitServiceDTO;
 import com.example.WebLab3.entity.Hit;
 import com.example.WebLab3.utility.HitService;
 import lombok.Data;
@@ -10,7 +9,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.PostConstruct;
+import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
@@ -19,11 +20,16 @@ import java.util.List;
 import java.util.Set;
 
 @Data
+@ManagedBean
+@SessionScoped
 public class HitResults {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private Hit newHit = new Hit();
     private List<Hit> hitList = new ArrayList<>();
     private HitService hitService = new HitService();
+
+    //todo Задать бин пользователя и сделать OneToMany отношение с выстрелами
+    // включить это поле туда
     private String sessionId;
 
     @ManagedProperty(value = "#{hitServiceDTO}")
@@ -41,9 +47,20 @@ public class HitResults {
         newHit = new Hit();
     }
 
-    public void serviceClick(Hit aClick) {
-        aClick.setR(newHit.getR());
-        serviceHit(aClick);
+    public void addClick() {
+        String x = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("x");
+        String y = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("y");
+
+        logger.info("Click detected!");
+
+        Hit newClick = new Hit();
+        newClick.setX(Double.valueOf(x));
+        newClick.setY(Double.valueOf(y));
+        newClick.setR(newHit.getR());
+
+        serviceHit(newClick);
+
+        PrimeFaces.current().ajax().addCallbackParam("hitResult", newClick.getResult());
     }
 
     public void serviceHit(Hit hit) {

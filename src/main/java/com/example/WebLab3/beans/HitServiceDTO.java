@@ -1,29 +1,51 @@
-package com.example.WebLab3.dto;
+package com.example.WebLab3.beans;
 
 import com.example.WebLab3.entity.Hit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import javax.persistence.Persistence;
+import java.util.*;
 
-@ManagedBean
+@ManagedBean(name = "hitServiceDTO")
 @SessionScoped
 public class HitServiceDTO {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
+    private EntityManagerFactory entityManagerFactory;
 
-    @ManagedProperty(value = "#{persistenceFactory}")
-    private PersistenceFactory persistenceFactory;
+    //todo Вынести в отдельный класс фабрику и понять как задать очередность загрузки бинов
+
+    // todo Вынести в отдельный пакет классы связанные с БД
+    @PostConstruct
+    public void init() {
+        Map<String, String> settings = new HashMap<>();
+
+        try {
+            entityManagerFactory = initHitManagerFactory(settings);
+        } catch (Exception ex) {
+            logger.info("Unable to connect to DB! Setting helios settings!");
+            try {
+                settings.put("javax.persistence.jdbc.url", "jdbc:postgresql://pg:5432/studs");
+                entityManagerFactory = initHitManagerFactory(settings);
+            } catch (Exception e) {
+                logger.warn("Unable to connect to DB again! Try to restart application!");
+            }
+        }
+    }
+
+    private EntityManagerFactory initHitManagerFactory(Map<String, String> settings) {
+        return Persistence.createEntityManagerFactory("Hits", settings);
+    }
 
     public boolean save(Hit aHit) {
-        EntityManager entityManager = persistenceFactory.getEntityManagerFactory().createEntityManager();
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction entityTransaction = entityManager.getTransaction();
         try {
             entityTransaction.begin();
@@ -45,7 +67,7 @@ public class HitServiceDTO {
     }
 
     public Optional<List<Hit>> getSessionEntityList() {
-        EntityManager entityManager = persistenceFactory.getEntityManagerFactory().createEntityManager();
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
         List<Hit> hitList = null;
         try {
             hitList = entityManager.createQuery("SELECT p FROM Hit p", Hit.class).getResultList();
@@ -60,7 +82,7 @@ public class HitServiceDTO {
     public boolean deleteSessionEntityList() {
         List<Hit> hitList = getSessionEntityList().orElse(Collections.emptyList());
 
-        EntityManager entityManager = persistenceFactory.getEntityManagerFactory().createEntityManager();
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction entityTransaction = entityManager.getTransaction();
         try {
             entityTransaction.begin();

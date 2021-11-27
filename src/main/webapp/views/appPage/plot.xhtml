@@ -11,7 +11,7 @@
     <div id='plot'></div>
 
     <!-- Метод js для вызова метода на бине (ex. rc([{name: 'x', value: x}, {name: 'y', value: y}]))-->
-    <p:remoteCommand name="addClick" update="msgs, hitTable" action="#{clickBean.addClick}"/>
+    <p:remoteCommand name="addClick" update="msgs, hitTable" action="#{hitResults.addClick}"/>
 
     <!-- Алерты для вывода результата валидации сервера -->
     <p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true" widgetVar="msgsWidget"/>
