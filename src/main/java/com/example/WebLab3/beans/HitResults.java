@@ -5,8 +5,6 @@ import com.example.WebLab3.entity.Hit;
 import com.example.WebLab3.interfaces.ServiceManagerInterface;
 import com.example.WebLab3.utility.ServiceManager;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 import org.kopitubruk.util.json.JSONUtil;
 import org.primefaces.PrimeFaces;
 import org.slf4j.Logger;
@@ -60,13 +58,14 @@ public class HitResults {
 
     public void serviceForm() {
         logger.info("Form hit detected!");
+
         if (serviceManager.serviceForm(newHit)) {
             saveHit(newHit);
         }
 
-        newHit = new Hit();
-
         logger.info("Now, size of results is: {}", hitList.size());
+
+        newHit = new Hit();
     }
 
     public void clear() {
@@ -76,12 +75,13 @@ public class HitResults {
 
     public void synchronizeDots() {
         hitList = hitDTO.getSessionEntityList(sessionId).orElse(Collections.emptyList());
-        logger.info(String.valueOf(hitList.size()));
+
         Set<String> jsonHitList = new HashSet<>();
         hitList.forEach(hit -> {
             String jsonHit = hit.jsonHit();
             jsonHitList.add(jsonHit);
         });
+
         PrimeFaces.current().ajax().addCallbackParam("dotsJSON", JSONUtil.toJSON(jsonHitList));
     }
 

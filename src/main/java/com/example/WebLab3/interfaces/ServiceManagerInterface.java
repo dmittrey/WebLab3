@@ -4,7 +4,7 @@ import com.example.WebLab3.entity.Hit;
 
 public interface ServiceManagerInterface {
 
-    boolean serviceClick(Hit aClick);
+    void serviceClick(Hit aClick);
 
     boolean serviceForm(Hit aForm);
 }

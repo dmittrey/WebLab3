@@ -20,7 +20,6 @@ import java.util.*;
 @ManagedBean(eager = true)
 @SessionScoped
 public class HitDTO implements HitDTOInterface {
-
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private EntityManagerFactory entityManagerFactory;
 
@@ -64,7 +63,7 @@ public class HitDTO implements HitDTOInterface {
             logger.warn("Exception at getSessionEntityList!");
             ex.printStackTrace();
         }
-        entityManager.close();
+        entityManager.close(); // Это легковес, я могу так делать без потери производительности
         return Optional.ofNullable(hitList);
     }
 
@@ -83,7 +82,7 @@ public class HitDTO implements HitDTOInterface {
             return true;
         } catch (Exception ex) {
             try {
-                logger.warn("Exception at deleteSessionEntityList.");
+                logger.warn("Exception at deleteSessionEntityList!");
                 entityTransaction.rollback();
             } catch (Exception exc) {
                 exc.printStackTrace();

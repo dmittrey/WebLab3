@@ -17,10 +17,9 @@ public class ServiceManager implements ServiceManagerInterface {
     private final AreaHitCheckerInterface areaChecker = new AreaHitChecker();
 
     @Override
-    public boolean serviceClick(Hit aClick) {
+    public void serviceClick(Hit aClick) {
         long serviceStartTime = System.nanoTime();
         service(aClick, serviceStartTime);
-        return true;
     }
 
     @Override

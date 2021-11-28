@@ -6,8 +6,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class PersistenceFactory {
-
-    //todo Залогировать
     private static PersistenceFactory instance;
 
     public static PersistenceFactory getInstance() {
