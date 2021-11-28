@@ -1,14 +1,12 @@
 package com.example.WebLab3.utility;
 
 import com.example.WebLab3.entity.Hit;
+import com.example.WebLab3.interfaces.AreaHitCheckerInterface;
 
-public class AreaChecker {
+public class AreaHitChecker implements AreaHitCheckerInterface {
 
-    public boolean checkShot(Hit hit) {
-        return checkHitResult(hit);
-    }
-
-    private boolean checkHitResult(Hit aHit) {
+    @Override
+    public boolean checkHitResult(Hit aHit) {
         return isBlueZone(aHit) || isGreenZone(aHit) || isYellowZone(aHit);
     }
 

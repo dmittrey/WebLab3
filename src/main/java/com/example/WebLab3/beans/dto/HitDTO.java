@@ -1,7 +1,9 @@
 package com.example.WebLab3.beans.dto;
 
 import com.example.WebLab3.entity.Hit;
+import com.example.WebLab3.interfaces.HitDTOInterface;
 import com.example.WebLab3.utility.PersistenceFactory;
+import lombok.Data;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -11,21 +13,23 @@ import javax.faces.bean.SessionScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
+import javax.persistence.Query;
 import java.util.*;
 
-@ManagedBean(name = "hitService", eager = true)
+@Data
+@ManagedBean(eager = true)
 @SessionScoped
-public class HitServiceDTO {
+public class HitDTO implements HitDTOInterface {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
-
     private EntityManagerFactory entityManagerFactory;
 
     @PostConstruct
-    public void init() {
+    private void init() {
         entityManagerFactory = PersistenceFactory.getInstance().getEntityManagerFactory();
     }
 
+    @Override
     public boolean save(Hit aHit) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction entityTransaction = entityManager.getTransaction();
@@ -48,11 +52,14 @@ public class HitServiceDTO {
         return false;
     }
 
-    public Optional<List<Hit>> getSessionEntityList() {
+    @Override
+    public Optional<List<Hit>> getSessionEntityList(String sessionId) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         List<Hit> hitList = null;
         try {
-            hitList = entityManager.createQuery("SELECT p FROM Hit p", Hit.class).getResultList();
+            Query query = entityManager.createQuery("SELECT u FROM Hit u WHERE u.sessionId=:sessionId");
+            query.setParameter("sessionId", sessionId);
+            hitList = query.getResultList();
         } catch (Exception ex) {
             logger.warn("Exception at getSessionEntityList!");
             ex.printStackTrace();
@@ -61,8 +68,9 @@ public class HitServiceDTO {
         return Optional.ofNullable(hitList);
     }
 
-    public boolean deleteSessionEntityList() {
-        List<Hit> hitList = getSessionEntityList().orElse(Collections.emptyList());
+    @Override
+    public boolean deleteSessionEntityList(String sessionId) {
+        List<Hit> hitList = getSessionEntityList(sessionId).orElse(Collections.emptyList());
 
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction entityTransaction = entityManager.getTransaction();

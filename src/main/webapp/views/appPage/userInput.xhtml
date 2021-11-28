@@ -5,6 +5,7 @@
         xmlns:p="http://primefaces.org/ui"
         xmlns:f="http://java.sun.com/jsf/core"
         xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+
     <h:outputStylesheet name="styles/user_input.css"/>
     <h:outputScript name="scripts/graphHandler.js"/>
 
@@ -58,9 +59,11 @@
             </div>
         </div>
 
-        <p:remoteCommand name="addHit" update="msgs" action="#{hitResults.addHit}"/>
+        <!-- Инвокер команды на бине и табло отображения серверных сообщений -->
+        <p:remoteCommand name="addHit" update="msgs" action="#{hitResults.serviceForm}"/>
         <p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true" widgetVar="msgsWidget"/>
 
+        <!-- Отображение клиентской валидации -->
         <div id="Error_text">
             <span id="X_error"/>
             <span id="Y_error"/>
@@ -74,6 +77,8 @@
             </h:commandButton>
         </div>
     </h:form>
+
     <h:outputScript name="scripts/validator.js"/>
     <h:outputScript name="scripts/alertHandler.js"/>
+
 </ui:composition>

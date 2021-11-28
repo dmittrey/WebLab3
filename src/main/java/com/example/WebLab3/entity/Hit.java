@@ -1,12 +1,10 @@
 package com.example.WebLab3.entity;
 
+import com.example.WebLab3.interfaces.HitValuesFormatterInterface;
+import com.example.WebLab3.utility.HitValuesFormatter;
 import lombok.Data;
-import org.kopitubruk.util.json.JSONUtil;
 
 import javax.persistence.*;
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Map;
 
 @Data
 @Entity
@@ -25,34 +23,26 @@ public class Hit {
     private Boolean result;
     private String sessionId;
 
+    @Transient
+    private HitValuesFormatterInterface hitValuesFormatter = new HitValuesFormatter();
+
     public String getTableX() {
-        return String.format("%.3f", getX());
+        return hitValuesFormatter.getTableValue(x);
     }
 
     public String getTableY() {
-        return String.format("%.3f", getY());
+        return hitValuesFormatter.getTableValue(y);
     }
 
     public String getTableR() {
-        return String.format("%.3f", getR());
+        return hitValuesFormatter.getTableValue(r);
     }
 
     public String getTableResult() {
-        return getResult().toString().toUpperCase(Locale.ROOT);
+        return hitValuesFormatter.getUpperCaseResult(result);
     }
 
     public String jsonHit() {
-        return JSONUtil.toJSON(this.getMap());
-    }
-
-    private Map<String, String> getMap() {
-        Map<String, String> fields = new HashMap<>();
-        fields.put("x", String.valueOf(x));
-        fields.put("y", String.valueOf(y));
-        fields.put("r", String.valueOf(r));
-        fields.put("currentTime", String.valueOf(currentTime));
-        fields.put("executionTime", String.valueOf(executionTime));
-        fields.put("result", String.valueOf(result));
-        return fields;
+        return hitValuesFormatter.getJSONForm(this);
     }
 }

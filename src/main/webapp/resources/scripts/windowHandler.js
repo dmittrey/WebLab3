@@ -5,6 +5,7 @@ window.onload = () => {
         let dots = responseData.jqXHR.pfArgs.dotsJSON;
         console.log("dotJSON request successful!");
         if (dots !== undefined) {
+            updateTable();
             resetDots(JSON.parse(dots));
             switchRadius();
         } else drawPlot();

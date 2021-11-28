@@ -7,6 +7,7 @@ import java.util.Map;
 
 public class PersistenceFactory {
 
+    //todo Залогировать
     private static PersistenceFactory instance;
 
     public static PersistenceFactory getInstance() {
@@ -19,16 +20,20 @@ public class PersistenceFactory {
         settings.put("javax.persistence.jdbc.user", System.getenv("login"));
         settings.put("javax.persistence.jdbc.password", System.getenv("password"));
         try {
-            return Persistence.createEntityManagerFactory("Hits", settings);
-        } catch (Exception ex) {
-            System.err.println("Установить соединение на локальной машине не удалось, устанавливаем параметры для helios...");
+            return createEntityManagerFactory(settings);
+        } catch (Exception e) {
+            System.err.println("Unable to connect! Setting helios options...");
             try {
                 settings.put("javax.persistence.jdbc.url", "jdbc:postgresql://pg:5432/studs");
-                return Persistence.createEntityManagerFactory("Hits", settings);
+                return createEntityManagerFactory(settings);
             } catch (Exception exc) {
                 exc.printStackTrace();
             }
         }
         return null;
+    }
+
+    private EntityManagerFactory createEntityManagerFactory(Map<String, String> persistenceSettings) {
+        return Persistence.createEntityManagerFactory("Hits", persistenceSettings);
     }
 }

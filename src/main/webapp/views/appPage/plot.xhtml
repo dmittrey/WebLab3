@@ -3,9 +3,10 @@
         xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
         xmlns:h="http://java.sun.com/jsf/html"
         xmlns:p="http://primefaces.org/ui">
+
     <h:outputStylesheet name="styles/plot.css"/>
 
-    <p:remoteCommand name="getDots" action="#{hitResults.getJsonDots}"/>
+    <p:remoteCommand name="getDots" action="#{hitResults.synchronizeDots}"/>
 
     <!-- Координатная плоскость с содержимым -->
     <div id='plot'></div>
@@ -16,9 +17,7 @@
     <!-- Алерты для вывода результата валидации сервера -->
     <p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true" widgetVar="msgsWidget"/>
 
-    <style>
-        reset
-    </style>
     <h:outputScript name="scripts/graphHandler.js"/>
     <h:outputScript name="scripts/windowHandler.js"/>
+
 </ui:composition>

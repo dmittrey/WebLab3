@@ -1,14 +1,16 @@
 package com.example.WebLab3.utility;
 
 import com.example.WebLab3.entity.Hit;
+import com.example.WebLab3.interfaces.HitValidatorInterface;
 import lombok.NoArgsConstructor;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
 @NoArgsConstructor
-public class HitValidator {
+public class HitValidator implements HitValidatorInterface {
 
+    @Override
     public boolean validate(Hit hit) {
         return validateX(hit.getX())
                 & validateY(hit.getY())
