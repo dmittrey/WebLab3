@@ -97,34 +97,3 @@
     padding: 0;
     font-size: 1rem;
 }
-
-body .ui-button.ui-state-focus {
-    outline: 0 none;
-    outline-offset: 0;
-    box-shadow: none;
-}
-
-body .ui-button.ui-button-text-only .ui-button-text {
-    padding: 0;
-}
-
-body .ui-button.ui-state-hover {
-    background: rgba(49, 49, 49, 0.83);
-    border-color: whitesmoke;
-}
-
-.ui-button .ui-button-text {
-    display: contents;
-}
-
-body .ui-button {
-    border-style: revert;
-    border-color: whitesmoke;
-    border-width: 2px;
-    transition: none;
-    margin: 5px;
-}
-
-.ui-button .ui-button-text {
-    border: none;
-}

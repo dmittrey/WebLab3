@@ -1,5 +1,6 @@
 package com.example.WebLab3.beans;
 
+import com.example.WebLab3.beans.dto.HitServiceDTO;
 import com.example.WebLab3.entity.Hit;
 import com.example.WebLab3.utility.HitService;
 import lombok.Data;
@@ -32,7 +33,7 @@ public class HitResults {
     // включить это поле туда
     private String sessionId;
 
-    @ManagedProperty(value = "#{hitServiceDTO}")
+    @ManagedProperty(value = "#{hitService}")
     private HitServiceDTO hitServiceDTO;
 
     @PostConstruct
@@ -47,6 +48,7 @@ public class HitResults {
         newHit = new Hit();
     }
 
+    //todo Отменить валидацию на клик
     public void addClick() {
         String x = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("x");
         String y = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("y");

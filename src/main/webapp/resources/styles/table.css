@@ -32,6 +32,11 @@
     border: 1px solid black;
     box-shadow: 0 0 10px 5px rgba(221, 221, 221, 1);
     transition: 0.5s;
+    border-radius: 20px;
+}
+
+.main .table_section #hitTable {
+    border-radius: 10px;
 }
 
 .main .table_section #hitTable:hover {

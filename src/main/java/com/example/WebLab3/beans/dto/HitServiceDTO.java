@@ -1,6 +1,7 @@
-package com.example.WebLab3.beans;
+package com.example.WebLab3.beans.dto;
 
 import com.example.WebLab3.entity.Hit;
+import com.example.WebLab3.utility.PersistenceFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -10,38 +11,19 @@ import javax.faces.bean.SessionScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
 import java.util.*;
 
-@ManagedBean(name = "hitServiceDTO")
+@ManagedBean(name = "hitService", eager = true)
 @SessionScoped
 public class HitServiceDTO {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
+
     private EntityManagerFactory entityManagerFactory;
 
-    //todo Вынести в отдельный класс фабрику и понять как задать очередность загрузки бинов
-
-    // todo Вынести в отдельный пакет классы связанные с БД
     @PostConstruct
     public void init() {
-        Map<String, String> settings = new HashMap<>();
-
-        try {
-            entityManagerFactory = initHitManagerFactory(settings);
-        } catch (Exception ex) {
-            logger.info("Unable to connect to DB! Setting helios settings!");
-            try {
-                settings.put("javax.persistence.jdbc.url", "jdbc:postgresql://pg:5432/studs");
-                entityManagerFactory = initHitManagerFactory(settings);
-            } catch (Exception e) {
-                logger.warn("Unable to connect to DB again! Try to restart application!");
-            }
-        }
-    }
-
-    private EntityManagerFactory initHitManagerFactory(Map<String, String> settings) {
-        return Persistence.createEntityManagerFactory("Hits", settings);
+        entityManagerFactory = PersistenceFactory.getInstance().getEntityManagerFactory();
     }
 
     public boolean save(Hit aHit) {
