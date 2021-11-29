@@ -3,13 +3,17 @@
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd"
              version="2.2">
-    <persistence-unit name="Hits">
+    <persistence-unit name="Users">
         <description>Persistence unit for Users</description>
         <class>com.example.WebLab3.entity.Hit</class>
+        <class>com.example.WebLab3.entity.User</class>
 
         <properties>
             <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
             <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5903/studs"/>
+
+            <!--            Settings for helios-->
+            <!--            <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://pg:5432/studs"/>-->
 
             <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL94Dialect"/>
             <property name="hibernate.hbm2ddl.auto" value="create-drop"/>

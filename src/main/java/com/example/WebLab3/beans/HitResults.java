@@ -2,6 +2,7 @@ package com.example.WebLab3.beans;
 
 import com.example.WebLab3.beans.dto.HitDTO;
 import com.example.WebLab3.entity.Hit;
+import com.example.WebLab3.entity.User;
 import com.example.WebLab3.interfaces.ServiceManagerInterface;
 import com.example.WebLab3.utility.ServiceManager;
 import lombok.Data;
@@ -28,6 +29,7 @@ public class HitResults {
     private final ServiceManagerInterface serviceManager = new ServiceManager();
     private String sessionId;
     private List<Hit> hitList = new ArrayList<>();
+    private User user;
 
     @ManagedProperty(value = "#{hitDTO}")
     private HitDTO hitDTO;
@@ -37,6 +39,9 @@ public class HitResults {
         FacesContext fCtx = FacesContext.getCurrentInstance();
         HttpSession session = (HttpSession) fCtx.getExternalContext().getSession(true);
         sessionId = session.getId();
+        user = new User();
+        user.setSessionId(sessionId);
+        user.setHitList(hitList);
     }
 
     public void addClick() {
@@ -70,11 +75,11 @@ public class HitResults {
 
     public void clear() {
         hitList.clear();
-        destroySessionHits();
+        hitDTO.deleteSessionEntityList(user);
     }
 
     public void synchronizeDots() {
-        hitList = hitDTO.getSessionEntityList(sessionId).orElse(Collections.emptyList());
+        hitList = hitDTO.getSessionHitList(user).orElse(Collections.emptyList());
 
         Set<String> jsonHitList = new HashSet<>();
         hitList.forEach(hit -> {
@@ -86,13 +91,13 @@ public class HitResults {
     }
 
     private void saveHit(Hit aHit) {
-        aHit.setSessionId(sessionId);
+        aHit.setUser(user);
         hitList.add(aHit);
-        hitDTO.save(aHit);
+        hitDTO.saveHit(aHit);
     }
 
     @PreDestroy
     private void destroySessionHits() {
-        hitDTO.deleteSessionEntityList(sessionId);
+        hitDTO.deleteSessionEntityList(user);
     }
 }

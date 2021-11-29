@@ -1,6 +1,7 @@
 package com.example.WebLab3.beans.dto;
 
 import com.example.WebLab3.entity.Hit;
+import com.example.WebLab3.entity.User;
 import com.example.WebLab3.interfaces.HitDTOInterface;
 import com.example.WebLab3.utility.PersistenceFactory;
 import lombok.Data;
@@ -10,10 +11,7 @@ import org.slf4j.LoggerFactory;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Query;
+import javax.persistence.*;
 import java.util.*;
 
 @Data
@@ -29,36 +27,18 @@ public class HitDTO implements HitDTOInterface {
     }
 
     @Override
-    public boolean save(Hit aHit) {
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
-        EntityTransaction entityTransaction = entityManager.getTransaction();
-        try {
-            entityTransaction.begin();
-            entityManager.persist(aHit);
-            entityTransaction.commit();
-
-            entityManager.close();
-            return true;
-        } catch (Exception e) {
-            try {
-                logger.warn("Exception at addEntity!");
-                entityTransaction.rollback();
-            } catch (Exception exception) {
-                exception.printStackTrace();
-            }
-        }
-        entityManager.close();
-        return false;
+    public void saveHit(Hit aHit) {
+        User user = aHit.getUser();
+        if (!isUserInTable(user)) initializeUser(user);
+        saveObject(aHit);
     }
 
     @Override
-    public Optional<List<Hit>> getSessionEntityList(String sessionId) {
+    public Optional<List<Hit>> getSessionHitList(User anUser) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         List<Hit> hitList = null;
         try {
-            Query query = entityManager.createQuery("SELECT u FROM Hit u WHERE u.sessionId=:sessionId");
-            query.setParameter("sessionId", sessionId);
-            hitList = query.getResultList();
+            hitList = entityManager.find(User.class, anUser.getSessionId()).getHitList();
         } catch (Exception ex) {
             logger.warn("Exception at getSessionEntityList!");
             ex.printStackTrace();
@@ -68,18 +48,14 @@ public class HitDTO implements HitDTOInterface {
     }
 
     @Override
-    public boolean deleteSessionEntityList(String sessionId) {
-        List<Hit> hitList = getSessionEntityList(sessionId).orElse(Collections.emptyList());
-
+    public void deleteSessionEntityList(User anUser) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction entityTransaction = entityManager.getTransaction();
         try {
             entityTransaction.begin();
-            for (Hit hit : hitList) {
-                entityManager.remove(entityManager.contains(hit) ? hit : entityManager.merge(hit));
-            }
+            User deletingUser = entityManager.find(User.class, anUser.getSessionId());
+            entityManager.remove(deletingUser);
             entityTransaction.commit();
-            return true;
         } catch (Exception ex) {
             try {
                 logger.warn("Exception at deleteSessionEntityList!");
@@ -89,6 +65,44 @@ public class HitDTO implements HitDTOInterface {
             }
         }
         entityManager.close();
+    }
+
+    private void initializeUser(User anUser) {
+        saveObject(anUser);
+    }
+
+    private boolean isUserInTable(User anUser) {
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        try {
+            Query query = entityManager.createQuery("SELECT u FROM User u WHERE u.sessionId=:userSession");
+            query.setParameter("userSession", anUser.getSessionId());
+            query.getSingleResult();
+            return true;
+        } catch (NoResultException ex) {
+            logger.info("No users in table with this sessionId!");
+        } catch (Exception e) {
+            logger.warn("Exception at is UserInTable!");
+            e.printStackTrace();
+        }
+        entityManager.close(); // Это легковес, я могу так делать без потери производительности
         return false;
+    }
+
+    private void saveObject(Object anObject) {
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        EntityTransaction entityTransaction = entityManager.getTransaction();
+        try {
+            entityTransaction.begin();
+            entityManager.persist(anObject);
+            entityTransaction.commit();
+        } catch (Exception e) {
+            try {
+                logger.warn("Exception at addEntity!");
+                entityTransaction.rollback();
+            } catch (Exception exception) {
+                exception.printStackTrace();
+            }
+        }
+        entityManager.close();
     }
 }

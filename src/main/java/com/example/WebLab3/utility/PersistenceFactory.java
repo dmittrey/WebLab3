@@ -17,6 +17,7 @@ public class PersistenceFactory {
         Map<String, String> settings = new HashMap<>();
         settings.put("javax.persistence.jdbc.user", System.getenv("login"));
         settings.put("javax.persistence.jdbc.password", System.getenv("password"));
+
         try {
             return createEntityManagerFactory(settings);
         } catch (Exception e) {
@@ -32,6 +33,6 @@ public class PersistenceFactory {
     }
 
     private EntityManagerFactory createEntityManagerFactory(Map<String, String> persistenceSettings) {
-        return Persistence.createEntityManagerFactory("Hits", persistenceSettings);
+        return Persistence.createEntityManagerFactory("Users", persistenceSettings);
     }
 }

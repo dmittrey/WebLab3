@@ -1,15 +1,16 @@
 package com.example.WebLab3.interfaces;
 
 import com.example.WebLab3.entity.Hit;
+import com.example.WebLab3.entity.User;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface HitDTOInterface {
 
-    boolean save(Hit aHit);
+    void saveHit(Hit aHit);
 
-    Optional<List<Hit>> getSessionEntityList(String sessionId);
+    Optional<List<Hit>> getSessionHitList(User anUser);
 
-    boolean deleteSessionEntityList(String sessionId);
+    void deleteSessionEntityList(User anUser);
 }

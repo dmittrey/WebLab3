@@ -8,6 +8,7 @@ import javax.persistence.*;
 
 @Data
 @Entity
+@Table(name = "HITS")
 public class Hit {
 
     @Id
@@ -21,7 +22,10 @@ public class Hit {
     private String currentTime;
     private Double executionTime;
     private Boolean result;
-    private String sessionId;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
     @Transient
     private HitValuesFormatterInterface hitValuesFormatter = new HitValuesFormatter();
