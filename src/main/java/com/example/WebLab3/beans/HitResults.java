@@ -79,7 +79,7 @@ public class HitResults {
     }
 
     public void synchronizeDots() {
-        hitList = hitDTO.getSessionHitList(user).orElse(Collections.emptyList());
+        hitList = hitDTO.getSessionHitList(user).orElse(new ArrayList<>());
 
         Set<String> jsonHitList = new HashSet<>();
         hitList.forEach(hit -> {

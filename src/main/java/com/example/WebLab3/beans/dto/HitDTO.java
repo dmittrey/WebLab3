@@ -43,6 +43,7 @@ public class HitDTO implements HitDTOInterface {
             logger.warn("Exception at getSessionEntityList!");
             ex.printStackTrace();
         }
+
         entityManager.close(); // Это легковес, я могу так делать без потери производительности
         return Optional.ofNullable(hitList);
     }

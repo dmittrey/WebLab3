@@ -176,8 +176,9 @@ clickPointEvent = (event) => {
 
 getCoords = (event) => {
     let coordinates = {};
-    coordinates.x = convertToCoordinatesX(event.pageX - 99.5);
-    coordinates.y = convertToCoordinatesY(event.pageY - 181.5);
+    const rect = document.getElementById('plot').getBoundingClientRect();
+    coordinates.x = convertToCoordinatesX(event.clientX - rect.left);
+    coordinates.y = convertToCoordinatesY(event.clientY - rect.top);
     coordinates.r = document.getElementById("form:R_value").value;
     return coordinates;
 }
