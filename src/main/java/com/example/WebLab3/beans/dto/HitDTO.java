@@ -28,12 +28,12 @@ public class HitDTO implements HitDTOInterface {
 
     @Override
     public void initUser(User anUser) {
-        persistObject(anUser);
+        mergeObject(anUser);
     }
 
     @Override
     public void saveHit(Hit aHit) {
-        persistObject(aHit);
+        mergeObject(aHit);
     }
 
     @Override
@@ -53,7 +53,7 @@ public class HitDTO implements HitDTOInterface {
     @Override
     public void deleteUserHits(User anUser) {
         removeUser(anUser);
-        persistObject(anUser);
+        mergeObject(anUser);
     }
 
     @Override
@@ -79,12 +79,12 @@ public class HitDTO implements HitDTOInterface {
         entityManager.close();
     }
 
-    private void persistObject(Object anObject) {
+    private void mergeObject(Object anObject) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction entityTransaction = entityManager.getTransaction();
         try {
             entityTransaction.begin();
-            entityManager.persist(anObject);
+            entityManager.merge(anObject);
             entityTransaction.commit();
         } catch (Exception e) {
             try {

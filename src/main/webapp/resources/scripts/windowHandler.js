@@ -1,17 +1,6 @@
 window.onload = () => {
 
-    let promise = getDots();
-    promise.then(function (responseData) {
-        let dots = responseData.jqXHR.pfArgs.dotsJSON;
-        console.log("dotJSON request successful!");
-        if (dots !== undefined) {
-            updateTable();
-            resetDots(JSON.parse(dots));
-            switchRadius();
-        } else drawPlot();
-    }).catch(function (error) {
-        console.error("Request failed", error);
-    });
+    downloadDots();
 
     $('#plot').on("click", (e) => {
         clickPointEvent(e);// draw and add point
@@ -37,6 +26,21 @@ window.onload = () => {
     });
 }
 
+downloadDots = () => {
+    let promise = getDots();
+    promise.then(function (responseData) {
+        let dots = responseData.jqXHR.pfArgs.dotsJSON;
+        console.log("dotJSON request successful!");
+        if (dots !== undefined) {
+            updateTable();
+            resetDots(JSON.parse(dots));
+            switchRadius();
+        } else drawPlot();
+    }).catch(function (error) {
+        console.error("Request failed", error);
+    });
+}
+
 processSubmit = () => {
     if (!injectFormAlerts(
         document.getElementById("form:X_value"),
@@ -44,4 +48,6 @@ processSubmit = () => {
         document.getElementById("form:R_value")
     ))
         addHit();
+
+    downloadDots();
 }
