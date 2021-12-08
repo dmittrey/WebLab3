@@ -3,28 +3,24 @@ package com.example.WebLab3.beans.dto;
 import com.example.WebLab3.entity.Hit;
 import com.example.WebLab3.entity.User;
 import com.example.WebLab3.interfaces.HitDTOInterface;
-import com.example.WebLab3.utility.PersistenceFactory;
 import lombok.Data;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.persistence.*;
 import java.util.*;
 
 @Data
-@ManagedBean(eager = true)
+@ManagedBean
 @SessionScoped
 public class HitDTO implements HitDTOInterface {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
-    private EntityManagerFactory entityManagerFactory;
 
-    @PostConstruct
-    private void init() {
-        entityManagerFactory = PersistenceFactory.getInstance().getEntityManagerFactory();
-    }
+    @ManagedProperty(value = "#{persistenceFactory.entityManagerFactory}")
+    private EntityManagerFactory entityManagerFactory;
 
     @Override
     public void initUser(User anUser) {
