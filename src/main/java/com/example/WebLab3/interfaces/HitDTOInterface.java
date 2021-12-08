@@ -10,7 +10,11 @@ public interface HitDTOInterface {
 
     void saveHit(Hit aHit);
 
+    void initUser(User anUser);
+
+    void removeUser(User anUser);
+
     Optional<List<Hit>> getSessionHitList(User anUser);
 
-    void deleteSessionEntityList(User anUser);
+    void deleteUserHits(User anUser);
 }

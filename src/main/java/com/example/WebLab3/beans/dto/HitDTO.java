@@ -27,10 +27,13 @@ public class HitDTO implements HitDTOInterface {
     }
 
     @Override
+    public void initUser(User anUser) {
+        persistObject(anUser);
+    }
+
+    @Override
     public void saveHit(Hit aHit) {
-        User user = aHit.getUser();
-        if (!isUserInTable(user)) initializeUser(user);
-        saveObject(aHit);
+        persistObject(aHit);
     }
 
     @Override
@@ -43,53 +46,40 @@ public class HitDTO implements HitDTOInterface {
             logger.warn("Exception at getSessionEntityList!");
             ex.printStackTrace();
         }
-
         entityManager.close(); // Это легковес, я могу так делать без потери производительности
         return Optional.ofNullable(hitList);
     }
 
     @Override
-    public void deleteSessionEntityList(User anUser) {
+    public void deleteUserHits(User anUser) {
+        removeUser(anUser);
+        persistObject(anUser);
+    }
+
+    @Override
+    public void removeUser(User anUser) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction entityTransaction = entityManager.getTransaction();
         try {
             entityTransaction.begin();
+
             User deletingUser = entityManager.find(User.class, anUser.getSessionId());
             entityManager.remove(deletingUser);
+
             entityTransaction.commit();
-        } catch (Exception ex) {
+        } catch (Exception e) {
             try {
-                logger.warn("Exception at deleteSessionEntityList!");
+                logger.warn("Exception at removeEntity!");
+                e.printStackTrace();
                 entityTransaction.rollback();
-            } catch (Exception exc) {
-                exc.printStackTrace();
+            } catch (Exception exception) {
+                exception.printStackTrace();
             }
         }
         entityManager.close();
     }
 
-    private void initializeUser(User anUser) {
-        saveObject(anUser);
-    }
-
-    private boolean isUserInTable(User anUser) {
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
-        try {
-            Query query = entityManager.createQuery("SELECT u FROM User u WHERE u.sessionId=:userSession");
-            query.setParameter("userSession", anUser.getSessionId());
-            query.getSingleResult();
-            return true;
-        } catch (NoResultException ex) {
-            logger.info("No users in table with this sessionId!");
-        } catch (Exception e) {
-            logger.warn("Exception at is UserInTable!");
-            e.printStackTrace();
-        }
-        entityManager.close(); // Это легковес, я могу так делать без потери производительности
-        return false;
-    }
-
-    private void saveObject(Object anObject) {
+    private void persistObject(Object anObject) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction entityTransaction = entityManager.getTransaction();
         try {
@@ -98,7 +88,8 @@ public class HitDTO implements HitDTOInterface {
             entityTransaction.commit();
         } catch (Exception e) {
             try {
-                logger.warn("Exception at addEntity!");
+                logger.warn("Exception at persistEntity!");
+                e.printStackTrace();
                 entityTransaction.rollback();
             } catch (Exception exception) {
                 exception.printStackTrace();

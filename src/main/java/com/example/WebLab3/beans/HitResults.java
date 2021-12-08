@@ -37,11 +37,16 @@ public class HitResults {
     @PostConstruct
     private void initialUserSessionId() {
         FacesContext fCtx = FacesContext.getCurrentInstance();
+
         HttpSession session = (HttpSession) fCtx.getExternalContext().getSession(true);
+
         sessionId = session.getId();
+
         user = new User();
         user.setSessionId(sessionId);
         user.setHitList(hitList);
+
+        hitDTO.initUser(user);
     }
 
     public void addClick() {
@@ -74,8 +79,11 @@ public class HitResults {
     }
 
     public void clear() {
+        logger.info("User {} deleting Hits!", user.getSessionId());
+
         hitList.clear();
-        hitDTO.deleteSessionEntityList(user);
+
+        hitDTO.deleteUserHits(user);
     }
 
     public void synchronizeDots() {
@@ -98,6 +106,6 @@ public class HitResults {
 
     @PreDestroy
     private void destroySessionHits() {
-        hitDTO.deleteSessionEntityList(user);
+        hitDTO.removeUser(user);
     }
 }
