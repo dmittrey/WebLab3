@@ -2,7 +2,7 @@ package com.example.WebLab3.entity;
 
 import com.example.WebLab3.interfaces.HitValuesFormatterInterface;
 import com.example.WebLab3.utility.HitValuesFormatter;
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
 

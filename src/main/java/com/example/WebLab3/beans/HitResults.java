@@ -25,10 +25,9 @@ import java.util.*;
 @SessionScoped
 public class HitResults {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
-    private Hit newHit = new Hit();
     private final ServiceManagerInterface serviceManager = new ServiceManager();
-    private String sessionId;
-    private List<Hit> hitList = new ArrayList<>();
+
+    private Hit newHit = new Hit();
     private User user;
 
     @ManagedProperty(value = "#{hitDTO}")
@@ -40,11 +39,9 @@ public class HitResults {
 
         HttpSession session = (HttpSession) fCtx.getExternalContext().getSession(true);
 
-        sessionId = session.getId();
-
         user = new User();
-        user.setSessionId(sessionId);
-        user.setHitList(hitList);
+        user.setSessionId(session.getId());
+        user.setHitList(new ArrayList<>());
 
         hitDTO.initUser(user);
     }
@@ -73,7 +70,7 @@ public class HitResults {
             saveHit(newHit);
         }
 
-        logger.info("Now, size of results is: {}", hitList.size());
+        logger.info("Now, size of results is: {}", user.getHitList().size());
 
         newHit = new Hit();
     }
@@ -81,16 +78,20 @@ public class HitResults {
     public void clear() {
         logger.info("User {} deleting Hits!", user.getSessionId());
 
-        hitList.clear();
+        user.getHitList().clear();
+
+        newHit.setX(null);
+        newHit.setY(null);
+        newHit.setR(null);
 
         hitDTO.deleteUserHits(user);
     }
 
     public void synchronizeDots() {
-        hitList = hitDTO.getSessionHitList(user).orElse(new ArrayList<>());
+        user.setHitList(hitDTO.getSessionHitList(user).orElse(new ArrayList<>()));
 
         Set<String> jsonHitList = new HashSet<>();
-        hitList.forEach(hit -> {
+        user.getHitList().forEach(hit -> {
             String jsonHit = hit.jsonHit();
             jsonHitList.add(jsonHit);
         });
@@ -100,7 +101,7 @@ public class HitResults {
 
     private void saveHit(Hit aHit) {
         aHit.setUser(user);
-        hitList.add(aHit);
+        user.getHitList().add(aHit);
         hitDTO.saveHit(aHit);
     }
 

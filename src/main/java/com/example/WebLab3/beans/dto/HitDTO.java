@@ -28,12 +28,12 @@ public class HitDTO implements HitDTOInterface {
 
     @Override
     public void initUser(User anUser) {
-        mergeObject(anUser);
+        persistObject(anUser);
     }
 
     @Override
     public void saveHit(Hit aHit) {
-        mergeObject(aHit);
+        persistObject(aHit);
     }
 
     @Override
@@ -79,16 +79,38 @@ public class HitDTO implements HitDTOInterface {
         entityManager.close();
     }
 
+    private void persistObject(Object anObject) {
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        EntityTransaction entityTransaction = entityManager.getTransaction();
+        try {
+            entityTransaction.begin();
+            entityManager.persist(anObject);
+            entityTransaction.commit();
+        } catch (Exception e) {
+            try {
+                logger.warn("Exception at persistObject!");
+                e.printStackTrace();
+                entityTransaction.rollback();
+            } catch (Exception exception) {
+                exception.printStackTrace();
+            }
+        }
+        entityManager.close();
+    }
+
     private void mergeObject(Object anObject) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction entityTransaction = entityManager.getTransaction();
         try {
             entityTransaction.begin();
+            if (anObject instanceof User){
+                logger.info(String.valueOf(((User) anObject).getHitList().size()));
+            }
             entityManager.merge(anObject);
             entityTransaction.commit();
         } catch (Exception e) {
             try {
-                logger.warn("Exception at persistEntity!");
+                logger.warn("Exception at mergeEntity!");
                 e.printStackTrace();
                 entityTransaction.rollback();
             } catch (Exception exception) {
