@@ -3,16 +3,12 @@ package com.example.WebLab3.beans.dto;
 import lombok.Data;
 
 import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.NoneScoped;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import java.util.HashMap;
 import java.util.Map;
 
 @Data
-@ManagedBean
-@NoneScoped
 public class PersistenceFactory {
 
     private EntityManagerFactory entityManagerFactory;

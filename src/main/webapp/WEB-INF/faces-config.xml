@@ -19,4 +19,30 @@
             <redirect/>
         </navigation-case>
     </navigation-rule>
+
+    <managed-bean>
+        <managed-bean-name>hitResults</managed-bean-name>
+        <managed-bean-class>com.example.WebLab3.beans.HitResults</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>hitDTO</property-name>
+            <value>#{hitDTO}</value>
+        </managed-property>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>persistenceFactory</managed-bean-name>
+        <managed-bean-class>com.example.WebLab3.beans.dto.PersistenceFactory</managed-bean-class>
+        <managed-bean-scope>none</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>hitDTO</managed-bean-name>
+        <managed-bean-class>com.example.WebLab3.beans.dto.HitDTO</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>entityManagerFactory</property-name>
+            <value>#{persistenceFactory.entityManagerFactory}</value>
+        </managed-property>
+    </managed-bean>
 </faces-config>

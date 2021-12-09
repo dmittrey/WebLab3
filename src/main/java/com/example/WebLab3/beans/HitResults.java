@@ -13,24 +13,17 @@ import org.slf4j.LoggerFactory;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 import java.util.*;
 
 @Data
-@ManagedBean
-@SessionScoped
 public class HitResults {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private final ServiceManagerInterface serviceManager = new ServiceManager();
 
     private Hit newHit = new Hit();
     private User user;
-
-    @ManagedProperty(value = "#{hitDTO}")
     private HitDTO hitDTO;
 
     @PostConstruct
