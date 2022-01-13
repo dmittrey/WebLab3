@@ -7,12 +7,19 @@ import lombok.Data;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.SessionScoped;
 import javax.persistence.*;
 import java.util.*;
 
 @Data
+@ManagedBean
+@SessionScoped
 public class HitDTO implements HitDTOInterface {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
+
+    @ManagedProperty(value = "#{persistenceFactory.entityManagerFactory}")
     private EntityManagerFactory entityManagerFactory;
 
     @Override
@@ -92,7 +99,7 @@ public class HitDTO implements HitDTOInterface {
         EntityTransaction entityTransaction = entityManager.getTransaction();
         try {
             entityTransaction.begin();
-            if (anObject instanceof User) {
+            if (anObject instanceof User){
                 logger.info(String.valueOf(((User) anObject).getHitList().size()));
             }
             entityManager.merge(anObject);
