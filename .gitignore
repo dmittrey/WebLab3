@@ -1,3 +1,4 @@
 /target/
 /.idea/
 /src/main/webapp/resources/scripts/svg.js
+/src/main/webapp/resources/scripts/svg.js.map
