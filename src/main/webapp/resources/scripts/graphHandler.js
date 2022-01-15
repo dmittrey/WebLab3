@@ -207,7 +207,6 @@ resetDots = (newAttemptsArray) => {
             attemptsArray.push(JSON.parse(dot));
         })
     }
-    console.log(attemptsArray);
 }
 
 cleanPlot = () => {
