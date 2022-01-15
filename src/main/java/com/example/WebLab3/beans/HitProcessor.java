@@ -1,15 +1,14 @@
 package com.example.WebLab3.beans;
 
-import com.example.WebLab3.beans.dto.HitDTO;
 import com.example.WebLab3.entity.Hit;
 import com.example.WebLab3.entity.User;
-import com.example.WebLab3.interfaces.ServiceManagerInterface;
-import com.example.WebLab3.utility.ServiceManager;
+import com.example.WebLab3.interfaces.OneToManyDAO;
+import com.example.WebLab3.interfaces.ServiceManager;
+import com.example.WebLab3.utility.HitServiceManager;
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 import org.kopitubruk.util.json.JSONUtil;
 import org.primefaces.PrimeFaces;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -20,18 +19,18 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 import java.util.*;
 
+@Slf4j
 @Data
 @ManagedBean
 @SessionScoped
-public class HitResults {
-    private final Logger logger = LoggerFactory.getLogger(this.getClass());
-    private final ServiceManagerInterface serviceManager = new ServiceManager();
+public class HitProcessor {
 
+    private final ServiceManager<Hit> serviceManager = new HitServiceManager();
     private Hit newHit = new Hit();
     private User user;
 
-    @ManagedProperty(value = "#{hitDTO}")
-    private HitDTO hitDTO;
+    @ManagedProperty(value = "#{userToHitsDAO}")
+    private OneToManyDAO<Hit, User> hitDTO;
 
     @PostConstruct
     private void initialUserSessionId() {
@@ -43,40 +42,37 @@ public class HitResults {
         user.setSessionId(session.getId());
         user.setHitList(new ArrayList<>());
 
-        hitDTO.initUser(user);
+        hitDTO.initOwner(user);
     }
 
-    public void addClick() {
-        logger.info("Click detected!");
+    public void serviceClick() {
+        log.info("Click detected!");
 
-        String x = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("x");
-        String y = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("y");
+        String xCoordinate = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("x");
+        String yCoordinate = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("y");
 
         Hit newClick = new Hit();
-        newClick.setX(Double.valueOf(x));
-        newClick.setY(Double.valueOf(y));
+        newClick.setX(Double.valueOf(xCoordinate));
+        newClick.setY(Double.valueOf(yCoordinate));
         newClick.setR(newHit.getR());
 
-        serviceManager.serviceClick(newClick);
+        serviceManager.serviceWithoutValidation(newClick);
         saveHit(newClick);
 
         PrimeFaces.current().ajax().addCallbackParam("hitResult", newClick.getResult());
     }
 
     public void serviceForm() {
-        logger.info("Form hit detected!");
+        log.info("Form hit detected!");
 
-        if (serviceManager.serviceForm(newHit)) {
+        if (serviceManager.serviceWithValidation(newHit)) {
             saveHit(newHit);
         }
-
-        logger.info("Now, size of results is: {}", user.getHitList().size());
-
         newHit = new Hit();
     }
 
     public void clear() {
-        logger.info("User {} deleting Hits!", user.getSessionId());
+        log.info("User {} deleting Hits!", user.getSessionId());
 
         user.getHitList().clear();
 
@@ -84,17 +80,17 @@ public class HitResults {
         newHit.setY(null);
         newHit.setR(null);
 
-        hitDTO.deleteUserHits(user);
+        hitDTO.deleteOwnerUnits(user);
     }
 
     public void synchronizeDots() {
-        user.setHitList(hitDTO.getSessionHitList(user).orElse(new ArrayList<>()));
+        user.setHitList(hitDTO.getOwnerUnitsList(user).orElse(new ArrayList<>()));
 
         Set<String> jsonHitList = new HashSet<>();
-        user.getHitList().forEach(hit -> {
-            String jsonHit = hit.jsonHit();
-            jsonHitList.add(jsonHit);
-        });
+        user.getHitList()
+                .stream()
+                .map(Hit::jsonHit)
+                .forEach(jsonHitList::add);
 
         PrimeFaces.current().ajax().addCallbackParam("dotsJSON", JSONUtil.toJSON(jsonHitList));
     }
@@ -102,11 +98,11 @@ public class HitResults {
     private void saveHit(Hit aHit) {
         aHit.setUser(user);
         user.getHitList().add(aHit);
-        hitDTO.saveHit(aHit);
+        hitDTO.saveUnit(aHit);
     }
 
     @PreDestroy
     private void destroySessionHits() {
-        hitDTO.removeUser(user);
+        hitDTO.removeOwner(user);
     }
 }

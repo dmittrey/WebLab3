@@ -4,7 +4,7 @@
              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd"
              version="2.2">
     <persistence-unit name="Users">
-        <description>Persistence unit for Users</description>
+        <description>Persistence unit for User Hits</description>
         <class>com.example.WebLab3.entity.Hit</class>
         <class>com.example.WebLab3.entity.User</class>
 

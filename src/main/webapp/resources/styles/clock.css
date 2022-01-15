@@ -21,7 +21,7 @@
     background-size: cover, 25% 25%, cover;
     box-shadow: 0 0 10px 5px rgba(221, 221, 221, 1);
     border-radius: 50%;
-    transition: 0.5s
+    transition: 0.5s;
 }
 
 .clock:hover {
@@ -47,17 +47,14 @@
 .clock .hour, .hr{
     width: 16vw;
     height: 16vw;
-    transition: 0.5s;
 }
 .clock .min, .mn{
     width: 20vw;
     height: 20vw;
-    transition: 0.4s;
 }
 .clock .sec, .sc{
     width: 24vw;
     height: 24vw;
-    transition: 0.3s;
 }
 
 .hr, .mn, .sc{

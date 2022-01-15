@@ -11,7 +11,7 @@
 
         <!-- Кнопка очистки таблицы -->
         <div id="cleaner">
-            <h:commandButton styleClass="cleanerButton" value="CLEAN TABLE" action="#{hitResults.clear}">
+            <h:commandButton styleClass="cleanerButton" value="CLEAN TABLE" action="#{hitProcessor.clear}">
                 <f:ajax render="hitTable"/>
             </h:commandButton>
         </div>
@@ -19,7 +19,7 @@
         <p:remoteCommand name="updateTable" update="hitTable"/>
 
         <!--         Таблица регистрирующая попадания -->
-        <h:dataTable value="${hitResults.user.hitList}"
+        <h:dataTable value="${hitProcessor.user.hitList}"
                      var="hit"
                      styleClass="hitTable"
                      id="hitTable">
