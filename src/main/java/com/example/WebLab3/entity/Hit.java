@@ -1,6 +1,6 @@
 package com.example.WebLab3.entity;
 
-import com.example.WebLab3.interfaces.HitValuesFormatterInterface;
+import com.example.WebLab3.interfaces.ValuesFormatter;
 import com.example.WebLab3.utility.HitValuesFormatter;
 import lombok.*;
 
@@ -28,7 +28,7 @@ public class Hit {
     private User user;
 
     @Transient
-    private HitValuesFormatterInterface hitValuesFormatter = new HitValuesFormatter();
+    private ValuesFormatter<Double, Boolean, Hit> hitValuesFormatter = new HitValuesFormatter();
 
     public String getTableX() {
         return hitValuesFormatter.getTableValue(x);
