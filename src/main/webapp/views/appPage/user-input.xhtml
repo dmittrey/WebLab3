@@ -21,7 +21,7 @@
                 <!-- Поле для ввода значения X -->
                 <h:outputLabel for="X_value" value="X value:"/>
                 <h:inputText id="X_value"
-                             value="#{hitResults.newHit.x}"
+                             value="#{hitProcessor.newHit.x}"
                              maxlength="6"
                              pt:placeholder="Заполни меня"/>
             </div>
@@ -32,7 +32,7 @@
                 <!-- Поле ввода значения Y -->
                 <h:outputLabel for="Y_value" value="Y value:"/>
                 <h:inputText id="Y_value"
-                             value="#{hitResults.newHit.y}"
+                             value="#{hitProcessor.newHit.y}"
                              maxlength="6"
                              pt:placeholder="Заполни меня"/>
             </div>
@@ -44,7 +44,7 @@
                 <h:outputLabel for="R_value" value="R value:"/>
                 <h:inputText id="R_value"
                              styleClass="sliderValue"
-                             value="#{hitResults.newHit.r}"
+                             value="#{hitProcessor.newHit.r}"
                              pt:placeholder="Заполни меня"
                              required="true"
                              requiredMessage="Введите координату R!"
@@ -60,7 +60,7 @@
         </div>
 
         <!-- Инвокер команды на бине и табло отображения серверных сообщений -->
-        <p:remoteCommand name="addHit" update="msgs" action="#{hitResults.serviceForm}"/>
+        <p:remoteCommand name="addHit" update="msgs" action="#{hitProcessor.serviceForm}"/>
         <p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true" widgetVar="msgsWidget"/>
 
         <!-- Отображение клиентской валидации -->
