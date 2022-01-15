@@ -12,25 +12,19 @@ import org.primefaces.PrimeFaces;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 import java.util.*;
 
 @Slf4j
 @Data
-@ManagedBean
-@SessionScoped
 public class HitProcessor {
 
     private final ServiceManager<Hit> serviceManager = new HitServiceManager();
     private Hit newHit = new Hit();
     private User user;
 
-    @ManagedProperty(value = "#{userToHitsDAO}")
-    private OneToManyDAO<Hit, User> hitDTO;
+    private OneToManyDAO<Hit, User> dao;
 
     @PostConstruct
     private void initialUserSessionId() {
@@ -42,7 +36,7 @@ public class HitProcessor {
         user.setSessionId(session.getId());
         user.setHitList(new ArrayList<>());
 
-        hitDTO.initOwner(user);
+        dao.initOwner(user);
     }
 
     public void serviceClick() {
@@ -80,11 +74,11 @@ public class HitProcessor {
         newHit.setY(null);
         newHit.setR(null);
 
-        hitDTO.deleteOwnerUnits(user);
+        dao.deleteOwnerUnits(user);
     }
 
     public void synchronizeDots() {
-        user.setHitList(hitDTO.getOwnerUnitsList(user).orElse(new ArrayList<>()));
+        user.setHitList(dao.getOwnerUnitsList(user).orElse(new ArrayList<>()));
 
         Set<String> jsonHitList = new HashSet<>();
         user.getHitList()
@@ -98,11 +92,11 @@ public class HitProcessor {
     private void saveHit(Hit aHit) {
         aHit.setUser(user);
         user.getHitList().add(aHit);
-        hitDTO.saveUnit(aHit);
+        dao.saveUnit(aHit);
     }
 
     @PreDestroy
     private void destroySessionHits() {
-        hitDTO.removeOwner(user);
+        dao.removeOwner(user);
     }
 }

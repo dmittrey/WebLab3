@@ -6,19 +6,13 @@ import com.example.WebLab3.interfaces.OneToManyDAO;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.SessionScoped;
 import javax.persistence.*;
 import java.util.*;
 
 @Slf4j
 @Data
-@ManagedBean
-@SessionScoped
 public class UserToHitsDAO implements OneToManyDAO<Hit, User> {
 
-    @ManagedProperty(value = "#{persistenceFactory.entityManagerFactory}")
     private EntityManagerFactory entityManagerFactory;
 
     @Override

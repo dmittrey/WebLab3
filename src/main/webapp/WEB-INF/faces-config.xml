@@ -19,4 +19,28 @@
             <redirect/>
         </navigation-case>
     </navigation-rule>
+
+    <managed-bean>
+        <managed-bean-name>hitProcessor</managed-bean-name>
+        <managed-bean-class>com.example.WebLab3.beans.HitProcessor</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>dao</property-name>
+            <value>#{userToHitsDAO}</value>
+        </managed-property>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>userToHitsDAO</managed-bean-name>
+        <managed-bean-class>com.example.WebLab3.dao.UserToHitsDAO</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>entityManagerFactory</property-name>
+            <value>#{persistenceFactory.entityManagerFactory}</value>
+        </managed-property>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>persistenceFactory</managed-bean-name>
+        <managed-bean-class>com.example.WebLab3.dao.PersistenceFactory</managed-bean-class>
+        <managed-bean-scope>application</managed-bean-scope>
+    </managed-bean>
 </faces-config>

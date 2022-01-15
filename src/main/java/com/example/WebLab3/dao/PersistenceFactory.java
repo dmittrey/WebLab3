@@ -5,8 +5,6 @@ import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.annotation.PostConstruct;
-import javax.faces.bean.ApplicationScoped;
-import javax.faces.bean.ManagedBean;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import java.util.HashMap;
@@ -14,8 +12,6 @@ import java.util.Map;
 
 @Slf4j
 @Data
-@ManagedBean(eager = true)
-@ApplicationScoped
 public class PersistenceFactory {
 
     private EntityManagerFactory entityManagerFactory;
