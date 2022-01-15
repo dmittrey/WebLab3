@@ -1,14 +1,14 @@
 package com.example.WebLab3.utility;
 
 import com.example.WebLab3.entity.Hit;
-import com.example.WebLab3.interfaces.HitValuesFormatterInterface;
+import com.example.WebLab3.interfaces.ValuesFormatter;
 import org.kopitubruk.util.json.JSONUtil;
 
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-public class HitValuesFormatter implements HitValuesFormatterInterface {
+public class HitValuesFormatter implements ValuesFormatter<Double, Boolean, Hit> {
 
     @Override
     public String getTableValue(Double aCoordinate) {
