@@ -1,11 +1,10 @@
-package com.example.WebLab3.beans.dto;
+package com.example.WebLab3.dao;
 
 import com.example.WebLab3.entity.Hit;
 import com.example.WebLab3.entity.User;
-import com.example.WebLab3.interfaces.HitDTOInterface;
+import com.example.WebLab3.interfaces.OneToManyDAO;
 import lombok.Data;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -13,33 +12,53 @@ import javax.faces.bean.SessionScoped;
 import javax.persistence.*;
 import java.util.*;
 
+@Slf4j
 @Data
 @ManagedBean
 @SessionScoped
-public class HitDTO implements HitDTOInterface {
-    private final Logger logger = LoggerFactory.getLogger(this.getClass());
+public class UserToHitsDAO implements OneToManyDAO<Hit, User> {
 
     @ManagedProperty(value = "#{persistenceFactory.entityManagerFactory}")
     private EntityManagerFactory entityManagerFactory;
 
     @Override
-    public void initUser(User anUser) {
-        persistObject(anUser);
+    public void saveUnit(Hit unitObj) {
+        persistObject(unitObj);
     }
 
     @Override
-    public void saveHit(Hit aHit) {
-        persistObject(aHit);
+    public void initOwner(User ownerObj) {
+        persistObject(ownerObj);
     }
 
     @Override
-    public Optional<List<Hit>> getSessionHitList(User anUser) {
+    public void removeOwner(User ownerObj) {
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        EntityTransaction entityTransaction = entityManager.getTransaction();
+        try {
+            entityTransaction.begin();
+            User deletingOwner = entityManager.find(User.class, ownerObj.getSessionId());
+            entityManager.remove(deletingOwner);
+            entityTransaction.commit();
+        } catch (Exception e) {
+            try {
+                log.warn("Exception while removing an {}!", ownerObj);
+                entityTransaction.rollback();
+            } catch (Exception exception) {
+                exception.printStackTrace();
+            }
+        }
+        entityManager.close();
+    }
+
+    @Override
+    public Optional<List<Hit>> getOwnerUnitsList(User ownerObj) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         List<Hit> hitList = null;
         try {
-            hitList = entityManager.find(User.class, anUser.getSessionId()).getHitList();
+            hitList = entityManager.find(User.class, ownerObj.getSessionId()).getHitList();
         } catch (Exception ex) {
-            logger.warn("Exception at getSessionEntityList!");
+            log.warn("Exception while getting {} hitList!", ownerObj);
             ex.printStackTrace();
         }
         entityManager.close(); // Это легковес, я могу так делать без потери производительности
@@ -47,32 +66,9 @@ public class HitDTO implements HitDTOInterface {
     }
 
     @Override
-    public void deleteUserHits(User anUser) {
-        removeUser(anUser);
-        mergeObject(anUser);
-    }
-
-    @Override
-    public void removeUser(User anUser) {
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
-        EntityTransaction entityTransaction = entityManager.getTransaction();
-        try {
-            entityTransaction.begin();
-
-            User deletingUser = entityManager.find(User.class, anUser.getSessionId());
-            entityManager.remove(deletingUser);
-
-            entityTransaction.commit();
-        } catch (Exception e) {
-            try {
-                logger.warn("Exception at removeEntity!");
-                e.printStackTrace();
-                entityTransaction.rollback();
-            } catch (Exception exception) {
-                exception.printStackTrace();
-            }
-        }
-        entityManager.close();
+    public void deleteOwnerUnits(User ownerObj) {
+        removeOwner(ownerObj);
+        mergeObject(ownerObj);
     }
 
     private void persistObject(Object anObject) {
@@ -84,8 +80,7 @@ public class HitDTO implements HitDTOInterface {
             entityTransaction.commit();
         } catch (Exception e) {
             try {
-                logger.warn("Exception at persistObject!");
-                e.printStackTrace();
+                log.warn("Exception while persisting {}", anObject);
                 entityTransaction.rollback();
             } catch (Exception exception) {
                 exception.printStackTrace();
@@ -99,15 +94,11 @@ public class HitDTO implements HitDTOInterface {
         EntityTransaction entityTransaction = entityManager.getTransaction();
         try {
             entityTransaction.begin();
-            if (anObject instanceof User){
-                logger.info(String.valueOf(((User) anObject).getHitList().size()));
-            }
             entityManager.merge(anObject);
             entityTransaction.commit();
         } catch (Exception e) {
             try {
-                logger.warn("Exception at mergeEntity!");
-                e.printStackTrace();
+                log.warn("Exception while merging {}", anObject);
                 entityTransaction.rollback();
             } catch (Exception exception) {
                 exception.printStackTrace();
