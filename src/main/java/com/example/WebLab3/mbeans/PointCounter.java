@@ -5,8 +5,9 @@ import com.example.WebLab3.interfaces.Validator;
 import com.example.WebLab3.utility.HitValidator;
 
 import javax.management.Notification;
+import javax.management.NotificationBroadcasterSupport;
 
-public class PointCounter implements PointCounterMBean {
+public class PointCounter extends NotificationBroadcasterSupport implements PointCounterMBean {
 
     private long hitsAmount = 0;
     private long innerHitsAmount = 0;
