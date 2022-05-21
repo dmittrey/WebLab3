@@ -2,7 +2,7 @@ package com.example.WebLab3.mbeans;
 
 public interface PointCounterMBean {
 
-    Long countAllPoints();
+    Long getAllPoints();
 
-    Long countInnerPoints();
+    Long getInnerPoints();
 }

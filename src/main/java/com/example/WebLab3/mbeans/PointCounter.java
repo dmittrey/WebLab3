@@ -9,8 +9,8 @@ import javax.management.NotificationBroadcasterSupport;
 
 public class PointCounter extends NotificationBroadcasterSupport implements PointCounterMBean {
 
-    private long hitsAmount = 0;
-    private long innerHitsAmount = 0;
+    private long allPoints = 0;
+    private long innerPoints = 0;
 
     private boolean isPreviousInner = true;
 
@@ -19,10 +19,10 @@ public class PointCounter extends NotificationBroadcasterSupport implements Poin
     private final Validator<Hit> hitValidator = new HitValidator();
 
     public void persistHit(Hit aHit) {
-        hitsAmount++;
+        allPoints++;
 
         if (hitValidator.validate(aHit).isValidationStatus()) {
-            innerHitsAmount++;
+            innerPoints++;
 
             isPreviousInner = true;
         } else {
@@ -40,12 +40,12 @@ public class PointCounter extends NotificationBroadcasterSupport implements Poin
     }
 
     @Override
-    public Long countAllPoints() {
-        return hitsAmount;
+    public Long getAllPoints() {
+        return allPoints;
     }
 
     @Override
-    public Long countInnerPoints() {
-        return innerHitsAmount;
+    public Long getInnerPoints() {
+        return innerPoints;
     }
 }

@@ -6,6 +6,7 @@ import lombok.*;
 
 import javax.persistence.*;
 
+@ToString
 @Data
 @Entity
 @Table(name = "HITS")
